@@ -62,7 +62,6 @@ func UpdatePerson(c *gin.Context) {
 }
 
 func CreatePerson(c *gin.Context) {
-
 	var person Person
 	c.BindJSON(&person)
 
