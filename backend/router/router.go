@@ -34,10 +34,12 @@ func NewRouter() *gin.Engine {
 	r.Use(Recovery)
 
 	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
-	apiv1 := r.Group("/api/v1")
+	rv1 := r.Group("/api/v1")
 	{
-		// 学生操作
-		apiv1.GET("/student/:id", v1.GetStudentByID)
+		// 学生
+		rv1.GET("/student", v1.GetAllStudents)
+		rv1.GET("/student/:id", v1.GetStudentByID)
+		rv1.GET("/student/:id/course", v1.GetCoursesByStudent)
 	}
 	//{
 	//	// 用户操作

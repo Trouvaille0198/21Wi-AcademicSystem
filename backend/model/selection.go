@@ -6,9 +6,9 @@ import "gorm.io/gorm"
 // 三种情况: 未选 已选 已修
 type Selection struct {
 	gorm.Model
-	StudentID int `gorm:"student_id"`
-	CourseID  int `gorm:"course_id"`
-	Score     int `json:"score" gorm:"default:-1;comment:分数, -1表示未评分"`
+	StudentID uint `gorm:"student_id"`
+	CourseID  uint `gorm:"course_id"`
+	Score     int  `json:"score" gorm:"default:-1" example:"75"` // 分数, -1表示未评分
 }
 
 // CreateSelectionsExample 创建课程关联实例
@@ -30,7 +30,7 @@ func CreateSelectionsExample() (selections []Selection) {
 }
 
 // CreateSelection 创建选课记录
-func CreateSelection(studentID, CourseID, Score int) (err error) {
+func CreateSelection(studentID, CourseID uint, Score int) (err error) {
 	selection := Selection{
 		StudentID: studentID,
 		CourseID:  CourseID,

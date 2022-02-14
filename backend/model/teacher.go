@@ -7,11 +7,11 @@ import (
 type Teacher struct {
 	gorm.Model
 	Number     string `json:"number" gorm:"unique;index"`
-	Name       string `json:"name"`
+	Name       string `json:"name" example:"阿飘"`
 	Department string `json:"department" gorm:"comment:所属院系"`
 	Password   string `json:"password" gorm:"default:123"`
 
-	Courses []Selection `json:"courses"`
+	Courses []Course `json:"courses"`
 }
 
 // CreateTeachersExample 创建老师样例

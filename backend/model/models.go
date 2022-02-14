@@ -16,12 +16,13 @@ func Setup() {
 		log.Fatalf("model.Setup err: %v", err)
 	}
 
-	err = db.AutoMigrate(&Student{}, &Course{}, &Selection{})
+	err = db.AutoMigrate(&Student{}, &Course{}, &Selection{}, &Teacher{})
 	if err != nil {
 		log.Fatalf("model.Setup err: %v", err)
 	}
 
 	CreateStudentsExample()
+	CreateTeachersExample()
 	CreateCoursesExample()
 	CreateSelectionsExample()
 }

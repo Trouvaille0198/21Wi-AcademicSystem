@@ -1,10 +1,41 @@
 basePath: /api/v1
 definitions:
+  model.CourseByStuResult:
+    properties:
+      credit:
+        description: 学分
+        type: integer
+      department:
+        description: 所属院系
+        type: string
+      id:
+        type: integer
+      name:
+        description: 课名
+        type: string
+      number:
+        description: 课号
+        type: string
+      score:
+        description: 成绩
+        type: integer
+      student_name:
+        description: 学生名
+        type: string
+      teacher_name:
+        description: 老师名
+        type: string
+      term:
+        description: 学期
+        type: string
+    type: object
   model.Selection:
     properties:
       courseID:
         type: integer
       score:
+        description: 分数, -1表示未评分
+        example: 75
         type: integer
       studentID:
         type: integer
@@ -27,7 +58,7 @@ definitions:
       password:
         example: "123"
         type: string
-      selection:
+      selections:
         description: 选课情况
         items:
           $ref: '#/definitions/model.Selection'
@@ -44,6 +75,23 @@ info:
   title: Academic System
   version: "1.0"
 paths:
+  /student:
+    get:
+      consumes:
+      - application/json
+      description: 根据获取全体学生信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Student'
+            type: array
+      summary: 根据获取全体学生信息
+      tags:
+      - student
   /student/{id}:
     get:
       consumes:
@@ -65,4 +113,32 @@ paths:
       summary: 根据id获取学生信息
       tags:
       - student
+  /student/{id}/course:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定学生的所有课程
+      parameters:
+      - description: student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 是否有成绩 不写即全部返回
+        in: query
+        name: hasScore
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.CourseByStuResult'
+            type: array
+      summary: 获取指定学生的所有课程
+      tags:
+      - student
+      - course
 swagger: "2.0"

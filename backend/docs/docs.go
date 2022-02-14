@@ -25,6 +25,32 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/student": {
+            "get": {
+                "description": "根据获取全体学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "student"
+                ],
+                "summary": "根据获取全体学生信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Student"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/student/{id}": {
             "get": {
                 "description": "根据id获取学生信息",
@@ -56,9 +82,91 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/student/{id}/course": {
+            "get": {
+                "description": "获取指定学生的所有课程",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "student",
+                    "course"
+                ],
+                "summary": "获取指定学生的所有课程",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "student ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否有成绩 不写即全部返回",
+                        "name": "hasScore",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.CourseByStuResult"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "model.CourseByStuResult": {
+            "type": "object",
+            "properties": {
+                "credit": {
+                    "description": "学分",
+                    "type": "integer"
+                },
+                "department": {
+                    "description": "所属院系",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "课名",
+                    "type": "string"
+                },
+                "number": {
+                    "description": "课号",
+                    "type": "string"
+                },
+                "score": {
+                    "description": "成绩",
+                    "type": "integer"
+                },
+                "student_name": {
+                    "description": "学生名",
+                    "type": "string"
+                },
+                "teacher_name": {
+                    "description": "老师名",
+                    "type": "string"
+                },
+                "term": {
+                    "description": "学期",
+                    "type": "string"
+                }
+            }
+        },
         "model.Selection": {
             "type": "object",
             "properties": {
@@ -66,7 +174,9 @@ var doc = `{
                     "type": "integer"
                 },
                 "score": {
-                    "type": "integer"
+                    "description": "分数, -1表示未评分",
+                    "type": "integer",
+                    "example": 75
                 },
                 "studentID": {
                     "type": "integer"
@@ -97,7 +207,7 @@ var doc = `{
                     "type": "string",
                     "example": "123"
                 },
-                "selection": {
+                "selections": {
                     "description": "选课情况",
                     "type": "array",
                     "items": {

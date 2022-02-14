@@ -13,7 +13,7 @@ type Student struct {
 	Department string `json:"department" example:"计算机"` // 所属院系
 	Password   string `json:"password" gorm:"default:123" example:"123"`
 
-	Selection []Selection `json:"selection"` // 选课情况
+	Selections []Selection `json:"selections"` // 选课情况
 }
 
 // CreateStudentsExample 创建学生样例
