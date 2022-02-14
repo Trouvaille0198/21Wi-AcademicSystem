@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"gorm.io/gorm"
 )
 
@@ -33,7 +34,7 @@ func CreateStudentsExample() (students []Student) {
 func GetAllStudents() (*[]Student, error) {
 	var students []Student
 	err := db.Model(&Student{}).Find(&students).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &students, nil
@@ -43,7 +44,17 @@ func GetAllStudents() (*[]Student, error) {
 func GetStudentByID(id int) (*Student, error) {
 	var student Student
 	err := db.Model(&Student{}).Where("id = ?", id).First(&student).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	return &student, nil
+}
+
+// GetStudentByNumber 获取指定学号的学生信息
+func GetStudentByNumber(number string) (*Student, error) {
+	var student Student
+	err := db.Model(&Student{}).Where("number = ?", number).First(&student).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &student, nil
@@ -53,7 +64,7 @@ func GetStudentByID(id int) (*Student, error) {
 func GetStudentByAttrs(attrs interface{}) (*[]Student, error) {
 	var students []Student
 	err := db.Model(&Student{}).Where(attrs).Find(&students).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &students, nil

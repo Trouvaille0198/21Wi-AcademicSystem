@@ -21,6 +21,6 @@ go get -u github.com/swaggo/swag/cmd/swag@v1.6.7
 ```
 或使用
 ```shell
-swag init --parseDependency --parseInternal
+swag init --parseDependency --parseInternal --parseDepth=10
 ```
 但是很慢

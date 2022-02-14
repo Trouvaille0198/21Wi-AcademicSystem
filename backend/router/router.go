@@ -36,6 +36,9 @@ func NewRouter() *gin.Engine {
 	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 	rv1 := r.Group("/api/v1")
 	{
+		// 登录
+		rv1.POST("/login/student", v1.LoginAsStu)
+		rv1.POST("/login/admin", v1.LoginAsAdmin)
 		// 学生
 		rv1.GET("/student", v1.GetAllStudents)
 		rv1.GET("/student/:id", v1.GetStudentByID)

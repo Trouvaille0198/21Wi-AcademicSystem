@@ -75,6 +75,56 @@ info:
   title: Academic System
   version: "1.0"
 paths:
+  /login/admin:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 以管理员身份登录
+      parameters:
+      - description: 账号
+        in: formData
+        name: number
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: 以管理员身份登录
+      tags:
+      - login
+  /login/student:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 以学生身份登录
+      parameters:
+      - description: 学号
+        in: formData
+        name: number
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Student'
+      summary: 以学生身份登录
+      tags:
+      - login
   /student:
     get:
       consumes:
