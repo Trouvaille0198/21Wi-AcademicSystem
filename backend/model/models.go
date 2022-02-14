@@ -1,4 +1,4 @@
-package models
+package model
 
 import (
 	"gorm.io/driver/sqlite"
@@ -13,13 +13,15 @@ func Setup() {
 	db, err = gorm.Open(sqlite.Open("example.db"), &gorm.Config{})
 
 	if err != nil {
-		log.Fatalf("models.Setup err: %v", err)
+		log.Fatalf("model.Setup err: %v", err)
 	}
 
 	err = db.AutoMigrate(&Student{}, &Course{}, &Selection{})
 	if err != nil {
-		log.Fatalf("models.Setup err: %v", err)
+		log.Fatalf("model.Setup err: %v", err)
 	}
 
 	CreateStudentsExample()
+	CreateCoursesExample()
+	CreateSelectionsExample()
 }

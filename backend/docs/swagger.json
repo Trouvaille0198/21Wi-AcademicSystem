@@ -1,0 +1,99 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "学生选课系统",
+        "title": "Academic System",
+        "contact": {},
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/student/{id}": {
+            "get": {
+                "description": "根据id获取学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "student"
+                ],
+                "summary": "根据id获取学生信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "student ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Student"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Selection": {
+            "type": "object",
+            "properties": {
+                "courseID": {
+                    "type": "integer"
+                },
+                "score": {
+                    "type": "integer"
+                },
+                "studentID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Student": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer",
+                    "example": 21
+                },
+                "department": {
+                    "description": "所属院系",
+                    "type": "string",
+                    "example": "计算机"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "王二"
+                },
+                "number": {
+                    "type": "string",
+                    "example": "0198"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "123"
+                },
+                "selection": {
+                    "description": "选课情况",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Selection"
+                    }
+                },
+                "sex": {
+                    "type": "string",
+                    "example": "男"
+                }
+            }
+        }
+    }
+}

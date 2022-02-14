@@ -1,0 +1,68 @@
+basePath: /api/v1
+definitions:
+  model.Selection:
+    properties:
+      courseID:
+        type: integer
+      score:
+        type: integer
+      studentID:
+        type: integer
+    type: object
+  model.Student:
+    properties:
+      age:
+        example: 21
+        type: integer
+      department:
+        description: 所属院系
+        example: 计算机
+        type: string
+      name:
+        example: 王二
+        type: string
+      number:
+        example: "0198"
+        type: string
+      password:
+        example: "123"
+        type: string
+      selection:
+        description: 选课情况
+        items:
+          $ref: '#/definitions/model.Selection'
+        type: array
+      sex:
+        example: 男
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: 学生选课系统
+  license: {}
+  title: Academic System
+  version: "1.0"
+paths:
+  /student/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 根据id获取学生信息
+      parameters:
+      - description: student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Student'
+      summary: 根据id获取学生信息
+      tags:
+      - student
+swagger: "2.0"
