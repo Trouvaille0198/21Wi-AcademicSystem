@@ -1,6 +1,9 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"errors"
+	"gorm.io/gorm"
+)
 
 // Selection 记录学生选课情况
 // 三种情况: 未选 已选 已修
@@ -61,4 +64,20 @@ func GetSelectionsByStudentID(studentID int) ([]*Selection, error) {
 		return []*Selection{}, err
 	}
 	return selections, nil
+}
+
+// GetSelection 根据学生id和课程id获取选课记录
+func GetSelection(studentID, courseID int) (*Selection, error) {
+	var selection Selection
+	err := db.Model(&Selection{}).Where(
+		"student_id = ? AND course_id = ?", studentID, courseID).Find(&selection).Error
+	if err != nil || errors.Is(err, gorm.ErrRecordNotFound) {
+		return &Selection{}, err
+	}
+	return &selection, nil
+}
+
+func UpdateSelectionScore(id uint, score int) error {
+	err := db.Model(&Selection{}).Where("id = ?", id).Updates(Selection{Score: score}).Error
+	return err
 }

@@ -1,5 +1,36 @@
 basePath: /api/v1
 definitions:
+  model.Course:
+    properties:
+      credit:
+        description: 学分
+        example: 4
+        type: integer
+      department:
+        description: 所属院系
+        example: 计算机
+        type: string
+      name:
+        description: 课名
+        example: 数据库原理
+        type: string
+      number:
+        description: 课号
+        example: "0121"
+        type: string
+      selections:
+        items:
+          $ref: '#/definitions/model.Selection'
+        type: array
+      teacher_name:
+        description: 教师姓名
+        example: 老师A
+        type: string
+      term:
+        description: 学期
+        example: 22-冬季学期
+        type: string
+    type: object
   model.CourseByStuResult:
     properties:
       credit:
@@ -75,6 +106,33 @@ info:
   title: Academic System
   version: "1.0"
 paths:
+  /course/{id}:
+    put:
+      consumes:
+      - application/json
+      description: 整体更新课程信息
+      parameters:
+      - description: course ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: course 实例
+        in: body
+        name: id
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 整体更新课程信息
+      tags:
+      - course
   /login/admin:
     post:
       consumes:
@@ -191,4 +249,53 @@ paths:
       tags:
       - student
       - course
+  /student/{student_id}/course/{course_id}:
+    put:
+      description: 更新课程成绩
+      parameters:
+      - description: student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      - description: course ID
+        in: path
+        name: course_id
+        required: true
+        type: integer
+      - description: score
+        in: formData
+        name: score
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 更新课程成绩
+      tags:
+      - selection
+  /test/generate-examples:
+    get:
+      description: 生成样例数据
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 生成样例数据
+      tags:
+      - test
+  /test/ping:
+    get:
+      description: pong me!
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: ping!
+      tags:
+      - test
 swagger: "2.0"

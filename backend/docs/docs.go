@@ -25,6 +25,47 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/course/{id}": {
+            "put": {
+                "description": "整体更新课程信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course"
+                ],
+                "summary": "整体更新课程信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "course ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "course 实例",
+                        "name": "id",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/login/admin": {
             "post": {
                 "description": "以管理员身份登录",
@@ -199,9 +240,124 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/student/{student_id}/course/{course_id}": {
+            "put": {
+                "description": "更新课程成绩",
+                "tags": [
+                    "selection"
+                ],
+                "summary": "更新课程成绩",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "student ID",
+                        "name": "student_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "course ID",
+                        "name": "course_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "score",
+                        "name": "score",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/test/generate-examples": {
+            "get": {
+                "description": "生成样例数据",
+                "tags": [
+                    "test"
+                ],
+                "summary": "生成样例数据",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/test/ping": {
+            "get": {
+                "description": "pong me!",
+                "tags": [
+                    "test"
+                ],
+                "summary": "ping!",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "model.Course": {
+            "type": "object",
+            "properties": {
+                "credit": {
+                    "description": "学分",
+                    "type": "integer",
+                    "example": 4
+                },
+                "department": {
+                    "description": "所属院系",
+                    "type": "string",
+                    "example": "计算机"
+                },
+                "name": {
+                    "description": "课名",
+                    "type": "string",
+                    "example": "数据库原理"
+                },
+                "number": {
+                    "description": "课号",
+                    "type": "string",
+                    "example": "0121"
+                },
+                "selections": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Selection"
+                    }
+                },
+                "teacher_name": {
+                    "description": "教师姓名",
+                    "type": "string",
+                    "example": "老师A"
+                },
+                "term": {
+                    "description": "学期",
+                    "type": "string",
+                    "example": "22-冬季学期"
+                }
+            }
+        },
         "model.CourseByStuResult": {
             "type": "object",
             "properties": {

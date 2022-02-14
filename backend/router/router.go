@@ -36,6 +36,9 @@ func NewRouter() *gin.Engine {
 	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 	rv1 := r.Group("/api/v1")
 	{
+		// 功能性接口
+		rv1.GET("test/ping", v1.Ping)
+		rv1.GET("test/generate-examples", v1.GenerateExamples)
 		// 登录
 		rv1.POST("/login/student", v1.LoginAsStu)
 		rv1.POST("/login/admin", v1.LoginAsAdmin)
@@ -43,22 +46,10 @@ func NewRouter() *gin.Engine {
 		rv1.GET("/student", v1.GetAllStudents)
 		rv1.GET("/student/:id", v1.GetStudentByID)
 		rv1.GET("/student/:id/course", v1.GetCoursesByStudent)
+		rv1.PUT("/student/:student_id/course/:course_id", v1.UpdateSelectionScore)
+		// 课程
+		rv1.PUT("/course/:id", v1.UpdateWholeCourse)
 	}
-	//{
-	//	// 用户操作
-	//	v1.POST("user/register", api.UserRegister)
-	//	v1.POST("user/login", api.UserLogin)
-	//	authed := v1.Group("/") //需要登陆保护
-	//	{
-	//		//任务操作
-	//		authed.GET("tasks", api.ListTasks)
-	//		authed.POST("task", api.CreateTask)
-	//		authed.GET("task/:id", api.ShowTask)
-	//		authed.DELETE("task/:id", api.DeleteTask)
-	//		authed.PUT("task/:id", api.UpdateTask)
-	//		authed.POST("search", api.SearchTasks)
-	//	}
-	//}
 	return r
 }
 

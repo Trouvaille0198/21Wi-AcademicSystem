@@ -34,7 +34,7 @@ func CreateCoursesExample() (courses []Course) {
 func GetAllCourses() ([]*Course, error) {
 	var courses []*Course
 	err := db.Model(&Course{}).Find(&courses).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return courses, nil
@@ -44,7 +44,7 @@ func GetAllCourses() ([]*Course, error) {
 func GetCourseByID(id int) (*Course, error) {
 	var course Course
 	err := db.Model(&Course{}).Where("id = ?", id).First(&course).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &course, nil
@@ -54,7 +54,7 @@ func GetCourseByID(id int) (*Course, error) {
 func GetCourseByAttrs(attrs interface{}) (*[]Course, error) {
 	var courses []Course
 	err := db.Model(&Course{}).Where(attrs).Find(&courses).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &courses, nil
@@ -68,7 +68,7 @@ func GetCoursesByStudent(studentID int) (*[]CourseByStuResult, error) {
 		"from courses as c, selections as sc, students as s "+
 		"where sc.course_id = c.id and sc.student_id = s.id "+
 		"and s.id = ?", studentID).Scan(&courseByStuResult).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &courseByStuResult, nil
@@ -82,7 +82,7 @@ func GetCoursesByStudentWithScore(studentID int) (*[]CourseByStuResult, error) {
 		"from courses as c, selections as sc, students as s "+
 		"where sc.course_id = c.id and sc.student_id = s.id "+
 		"and s.id = ? and sc.score <> -1", studentID).Scan(&courseByStuResult).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return &courseByStuResult, nil
@@ -104,7 +104,13 @@ func GetCoursesByStudentWithoutScore(studentID int) (*[]CourseByStuResult, error
 
 // UpdateCourse 通用方法 修改指定id的课程信息
 func UpdateCourse(id int, data map[string]interface{}) (err error) {
-	err = db.Model(&Course{}).Where("id = ?", id).Updates(data).Error
+	err = db.Model(&Course{}).Omit("selections").Where("id = ?", id).Updates(data).Error
+	return
+}
+
+// UpdateWholeCourse 通用方法 整个地修改指定id的课程信息
+func UpdateWholeCourse(id int, course Course) (err error) {
+	err = db.Model(&Course{}).Omit("selections").Where("id = ?", id).Updates(course).Error
 	return
 }
 

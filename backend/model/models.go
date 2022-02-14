@@ -20,8 +20,4 @@ func Setup() {
 	if err != nil {
 		log.Fatalf("model.Setup err: %v", err)
 	}
-
-	CreateStudentsExample()
-	CreateCoursesExample()
-	CreateSelectionsExample()
 }
