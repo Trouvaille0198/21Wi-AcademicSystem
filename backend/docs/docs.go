@@ -25,6 +25,93 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/course": {
+            "get": {
+                "description": "获取课程 可以自由添加筛选属性",
+                "tags": [
+                    "course"
+                ],
+                "summary": "获取课程",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 4,
+                        "description": "学分",
+                        "name": "credit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "计算机",
+                        "description": "所属院系",
+                        "name": "department",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "数据库原理",
+                        "description": "课名",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "0121",
+                        "description": "课号",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "老师A",
+                        "description": "教师姓名",
+                        "name": "teacher_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "22-冬季学期",
+                        "description": "学期",
+                        "name": "term",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "创建课程",
+                "tags": [
+                    "course"
+                ],
+                "summary": "创建课程",
+                "parameters": [
+                    {
+                        "description": "course 实例",
+                        "name": "course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/course/{id}": {
             "put": {
                 "description": "整体更新课程信息",
@@ -48,7 +135,7 @@ var doc = `{
                     },
                     {
                         "description": "course 实例",
-                        "name": "id",
+                        "name": "course",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -141,6 +228,34 @@ var doc = `{
                 }
             }
         },
+        "/selection": {
+            "post": {
+                "description": "创建选课",
+                "tags": [
+                    "selection"
+                ],
+                "summary": "创建选课",
+                "parameters": [
+                    {
+                        "description": "选课情况",
+                        "name": "selection",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Selection"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/student": {
             "get": {
                 "description": "根据获取全体学生信息",
@@ -162,6 +277,32 @@ var doc = `{
                             "items": {
                                 "$ref": "#/definitions/model.Student"
                             }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "创建学生",
+                "tags": [
+                    "student"
+                ],
+                "summary": "创建学生",
+                "parameters": [
+                    {
+                        "description": "student 实例",
+                        "name": "student",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -234,7 +375,7 @@ var doc = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/model.CourseByStuResult"
+                                "$ref": "#/definitions/model.CourseByStuResponse"
                             }
                         }
                     }
@@ -245,7 +386,8 @@ var doc = `{
             "put": {
                 "description": "更新课程成绩",
                 "tags": [
-                    "selection"
+                    "selection",
+                    "admin"
                 ],
                 "summary": "更新课程成绩",
                 "parameters": [
@@ -358,7 +500,7 @@ var doc = `{
                 }
             }
         },
-        "model.CourseByStuResult": {
+        "model.CourseByStuResponse": {
             "type": "object",
             "properties": {
                 "credit": {

@@ -16,12 +16,12 @@ import (
 // @Produce      json
 // @Param 		 id   path   int   true   "student ID"
 // @Param        hasScore query bool false "是否有成绩 不写即全部返回"
-// @Success      200  {object}  []model.CourseByStuResult
+// @Success      200  {object}  []model.CourseByStuResponse
 // @Router       /student/{id}/course [get]
 func GetCoursesByStudent(c *gin.Context) {
 	hasScore, ok := c.GetQuery("hasScore")
 	studentID := util.String2Int(c.Param("id"))
-	var courses *[]model.CourseByStuResult
+	var courses *[]model.CourseByStuResponse
 	var sqlErr error
 	if !ok {
 		courses, sqlErr = model.GetCoursesByStudent(studentID)
@@ -58,7 +58,7 @@ func GetCoursesByStudent(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param 		 id   path   int   true   "course ID"
-// @Param 		 id   body   model.Course   true   "course 实例"
+// @Param 		 course   body   model.Course   true   "course 实例"
 // @Success      200  {string} string
 // @Router       /course/{id} [put]
 func UpdateWholeCourse(c *gin.Context) {
@@ -78,5 +78,61 @@ func UpdateWholeCourse(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "更新成功",
+	})
+}
+
+// CreateCourse godoc
+// @Summary      创建课程
+// @Description  创建课程
+// @Tags         course
+// @Param 		 course   body   model.Course   true   "course 实例"
+// @Success      200  {string} string
+// @Router       /course [post]
+func CreateCourse(c *gin.Context) {
+	course := model.Course{}
+	if err := c.ShouldBindJSON(&course); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	newCourse, err := model.CreateCourse(course)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "创建成功",
+		"course":  newCourse,
+	})
+}
+
+// GetCoursesByAttrs godoc
+// @Summary      获取课程
+// @Description  获取课程 可以自由添加筛选属性
+// @Tags         course
+// @Param 		 course   query   model.Course   false   "course 实例"
+// @Success      200  {string} string
+// @Router       /course [get]
+func GetCoursesByAttrs(c *gin.Context) {
+	course := model.Course{}
+	if err := c.ShouldBindQuery(&course); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	coursesResult, err := model.GetCourseByAttrs(course)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "查询成功",
+		"course":  coursesResult,
 	})
 }

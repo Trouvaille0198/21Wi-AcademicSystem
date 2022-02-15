@@ -1,7 +1,7 @@
 package model
 
-// CourseByStuResult 学生视角下的课程信息
-type CourseByStuResult struct {
+// CourseByStuResponse 学生视角下的课程信息
+type CourseByStuResponse struct {
 	ID          uint   `json:"id"`
 	Score       int    `json:"score"`        // 成绩
 	Number      string `json:"number"`       // 课号

@@ -46,9 +46,14 @@ func NewRouter() *gin.Engine {
 		rv1.GET("/student", v1.GetAllStudents)
 		rv1.GET("/student/:id", v1.GetStudentByID)
 		rv1.GET("/student/:id/course", v1.GetCoursesByStudent)
+		rv1.POST("/student", v1.CreateStudent)
 		rv1.PUT("/student/:student_id/course/:course_id", v1.UpdateSelectionScore)
 		// 课程
+		rv1.POST("/course", v1.CreateCourse)
 		rv1.PUT("/course/:id", v1.UpdateWholeCourse)
+		rv1.GET("course", v1.GetCoursesByAttrs)
+		// 选课
+		rv1.POST("/selection", v1.CreateSelection)
 	}
 	return r
 }

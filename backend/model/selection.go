@@ -33,15 +33,12 @@ func CreateSelectionsExample() (selections []Selection) {
 }
 
 // CreateSelection 创建选课记录
-func CreateSelection(studentID, CourseID uint, Score int) (err error) {
-	selection := Selection{
-		StudentID: studentID,
-		CourseID:  CourseID,
-		Score:     Score,
+func CreateSelection(selection Selection) (*Selection, error) {
+	err := db.Model(&Selection{}).Create(&selection).Error
+	if err != nil {
+		return &Selection{}, err
 	}
-
-	err = db.Model(&Selection{}).Create(&selection).Error
-	return
+	return &selection, nil
 }
 
 // UpdateSelection 更新选课记录
@@ -77,6 +74,7 @@ func GetSelection(studentID, courseID int) (*Selection, error) {
 	return &selection, nil
 }
 
+// UpdateSelectionScore 更新课程成绩
 func UpdateSelectionScore(id uint, score int) error {
 	err := db.Model(&Selection{}).Where("id = ?", id).Updates(Selection{Score: score}).Error
 	return err

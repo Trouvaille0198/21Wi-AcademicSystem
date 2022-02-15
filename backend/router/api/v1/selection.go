@@ -10,7 +10,7 @@ import (
 // UpdateSelectionScore godoc
 // @Summary      更新课程成绩
 // @Description  更新课程成绩
-// @Tags         selection
+// @Tags         selection, admin
 // @Param 		 student_id   path   int   true   "student ID"
 // @Param 		 course_id   path   int   true   "course ID"
 // @Param 		 score   formData   int   true   "score"
@@ -38,5 +38,35 @@ func UpdateSelectionScore(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "更新成功",
+	})
+}
+
+// CreateSelection godoc
+// @Summary      创建选课
+// @Description  创建选课
+// @Tags         selection
+// @Param 		 selection   body   model.Selection   true   "选课情况"
+// @Success      200  {string} string
+// @Router       /selection [post]
+func CreateSelection(c *gin.Context) {
+	var selection model.Selection
+	if err := c.ShouldBindJSON(&selection); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	newSelection, err := model.CreateSelection(selection)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "创建失败",
+			"error":   err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message":   "创建成功",
+		"selection": newSelection,
 	})
 }

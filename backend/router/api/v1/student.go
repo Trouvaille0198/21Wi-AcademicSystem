@@ -51,3 +51,37 @@ func GetAllStudents(c *gin.Context) {
 		"student": students,
 	})
 }
+
+// CreateStudent godoc
+// @Summary      创建学生
+// @Description  创建学生
+// @Tags         student
+// @Param 		 student   body   model.Student    true   "student 实例"
+// @Success      200  {string} string
+// @Router       /student [post]
+func CreateStudent(c *gin.Context) {
+	student := model.Student{}
+	if err := c.ShouldBindJSON(&student); err != nil {
+		if err.Error() == "UNIQUE constraint failed: students.number" {
+			c.JSON(http.StatusConflict, gin.H{
+				"message": "学号已存在！",
+			})
+			return
+		}
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	newStudent, err := model.CreateStudent(student)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "创建成功",
+		"course":  newStudent,
+	})
+}

@@ -7,12 +7,12 @@ import (
 
 type Course struct {
 	gorm.Model
-	Number      string `json:"number" gorm:"index" example:"0121"` // 课号
-	Name        string `json:"name" example:"数据库原理"`               // 课名
-	Credit      uint8  `json:"credit" example:"4"`                 // 学分
-	Department  string `json:"department" example:"计算机"`           // 所属院系
-	Term        string `json:"term" example:"22-冬季学期"`             // 学期
-	TeacherName string `json:"teacher_name" example:"老师A"`         // 教师姓名
+	Number      string `json:"number" form:"number" gorm:"index" example:"0121"` // 课号
+	Name        string `json:"name" form:"name" example:"数据库原理"`                 // 课名
+	Credit      uint8  `json:"credit" form:"credit" example:"4"`                 // 学分
+	Department  string `json:"department" form:"department" example:"计算机"`       // 所属院系
+	Term        string `json:"term" form:"term" example:"22-冬季学期"`               // 学期
+	TeacherName string `json:"teacher_name" form:"teacher_name" example:"老师A"`   // 教师姓名
 
 	Selections []Selection `json:"selections"`
 }
@@ -51,9 +51,9 @@ func GetCourseByID(id int) (*Course, error) {
 }
 
 // GetCourseByAttrs 通用方法 根据条件获取所有课程信息
-func GetCourseByAttrs(attrs interface{}) (*[]Course, error) {
+func GetCourseByAttrs(course Course) (*[]Course, error) {
 	var courses []Course
-	err := db.Model(&Course{}).Where(attrs).Find(&courses).Error
+	err := db.Model(&Course{}).Where(course).Find(&courses).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
@@ -61,8 +61,8 @@ func GetCourseByAttrs(attrs interface{}) (*[]Course, error) {
 }
 
 // GetCoursesByStudent 获取指定学生的所有课程
-func GetCoursesByStudent(studentID int) (*[]CourseByStuResult, error) {
-	var courseByStuResult []CourseByStuResult
+func GetCoursesByStudent(studentID int) (*[]CourseByStuResponse, error) {
+	var courseByStuResult []CourseByStuResponse
 	err := db.Raw("select distinct c.id, sc.score, c.number, c.name, c.credit, c.department, c.term, "+
 		"c.teacher_name, s.name as student_name "+
 		"from courses as c, selections as sc, students as s "+
@@ -75,8 +75,8 @@ func GetCoursesByStudent(studentID int) (*[]CourseByStuResult, error) {
 }
 
 // GetCoursesByStudentWithScore 获取指定学生的所有有成绩的课程
-func GetCoursesByStudentWithScore(studentID int) (*[]CourseByStuResult, error) {
-	var courseByStuResult []CourseByStuResult
+func GetCoursesByStudentWithScore(studentID int) (*[]CourseByStuResponse, error) {
+	var courseByStuResult []CourseByStuResponse
 	err := db.Raw("select distinct c.id, sc.score, c.number, c.name, c.credit, c.department, c.term, "+
 		"c.teacher_name, s.name as student_name "+
 		"from courses as c, selections as sc, students as s "+
@@ -89,8 +89,8 @@ func GetCoursesByStudentWithScore(studentID int) (*[]CourseByStuResult, error) {
 }
 
 // GetCoursesByStudentWithoutScore 获取指定学生的所有无成绩的课程
-func GetCoursesByStudentWithoutScore(studentID int) (*[]CourseByStuResult, error) {
-	var courseByStuResult []CourseByStuResult
+func GetCoursesByStudentWithoutScore(studentID int) (*[]CourseByStuResponse, error) {
+	var courseByStuResult []CourseByStuResponse
 	err := db.Raw("select distinct c.id, sc.score, c.number, c.name, c.credit, c.department, c.term, "+
 		"c.teacher_name, s.name as student_name "+
 		"from courses as c, selections as sc, students as s "+
@@ -115,16 +115,8 @@ func UpdateWholeCourse(id int, course Course) (err error) {
 }
 
 // CreateCourse 创建课程实例
-func CreateCourse(data map[string]interface{}) (*Course, error) {
-	course := Course{
-		Number:      data["number"].(string),
-		Name:        data["name"].(string),
-		Credit:      data["credit"].(uint8),
-		Department:  data["department"].(string),
-		Term:        data["term"].(string),
-		TeacherName: data["teacher_name"].(string),
-	}
-	err := db.Create(&course).Error
+func CreateCourse(course Course) (*Course, error) {
+	err := db.Omit("selections").Create(&course).Error
 	if err != nil {
 		return &Course{}, err
 	}

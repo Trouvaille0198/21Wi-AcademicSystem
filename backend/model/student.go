@@ -80,16 +80,8 @@ func UpdateStudent(id int, data map[string]interface{}) error {
 }
 
 // CreateStudent 创建学生实例
-func CreateStudent(data map[string]interface{}) (*Student, error) {
-	student := Student{
-		Number:     data["number"].(string),
-		Name:       data["name"].(string),
-		Sex:        data["sex"].(string),
-		Age:        data["age"].(uint8),
-		Department: data["department"].(string),
-		Password:   data["password"].(string),
-	}
-	err := db.Create(&student).Error
+func CreateStudent(student Student) (*Student, error) {
+	err := db.Omit("selections").Create(&student).Error
 	if err != nil {
 		return &Student{}, err
 	}

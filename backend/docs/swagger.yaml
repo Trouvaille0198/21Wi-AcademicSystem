@@ -31,7 +31,7 @@ definitions:
         example: 22-冬季学期
         type: string
     type: object
-  model.CourseByStuResult:
+  model.CourseByStuResponse:
     properties:
       credit:
         description: 学分
@@ -106,6 +106,65 @@ info:
   title: Academic System
   version: "1.0"
 paths:
+  /course:
+    get:
+      description: 获取课程 可以自由添加筛选属性
+      parameters:
+      - description: 学分
+        example: 4
+        in: query
+        name: credit
+        type: integer
+      - description: 所属院系
+        example: 计算机
+        in: query
+        name: department
+        type: string
+      - description: 课名
+        example: 数据库原理
+        in: query
+        name: name
+        type: string
+      - description: 课号
+        example: "0121"
+        in: query
+        name: number
+        type: string
+      - description: 教师姓名
+        example: 老师A
+        in: query
+        name: teacher_name
+        type: string
+      - description: 学期
+        example: 22-冬季学期
+        in: query
+        name: term
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 获取课程
+      tags:
+      - course
+    post:
+      description: 创建课程
+      parameters:
+      - description: course 实例
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 创建课程
+      tags:
+      - course
   /course/{id}:
     put:
       consumes:
@@ -119,7 +178,7 @@ paths:
         type: integer
       - description: course 实例
         in: body
-        name: id
+        name: course
         required: true
         schema:
           $ref: '#/definitions/model.Course'
@@ -183,6 +242,24 @@ paths:
       summary: 以学生身份登录
       tags:
       - login
+  /selection:
+    post:
+      description: 创建选课
+      parameters:
+      - description: 选课情况
+        in: body
+        name: selection
+        required: true
+        schema:
+          $ref: '#/definitions/model.Selection'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 创建选课
+      tags:
+      - selection
   /student:
     get:
       consumes:
@@ -198,6 +275,23 @@ paths:
               $ref: '#/definitions/model.Student'
             type: array
       summary: 根据获取全体学生信息
+      tags:
+      - student
+    post:
+      description: 创建学生
+      parameters:
+      - description: student 实例
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/model.Student'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 创建学生
       tags:
       - student
   /student/{id}:
@@ -243,7 +337,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/model.CourseByStuResult'
+              $ref: '#/definitions/model.CourseByStuResponse'
             type: array
       summary: 获取指定学生的所有课程
       tags:
@@ -276,6 +370,7 @@ paths:
       summary: 更新课程成绩
       tags:
       - selection
+      - admin
   /test/generate-examples:
     get:
       description: 生成样例数据
