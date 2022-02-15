@@ -1,0 +1,73 @@
+/* pages/enter/enter.wxss */
+
+.login{
+    position: absolute;
+    background-color: #FFFFFF;
+    top: 25%;
+    height: 50%;
+    left: 20%;
+    right: 20%;
+    border-radius: 5px;
+}
+.title,.u,.p,.l,.s{
+    position: absolute;
+    width: 100%;
+}
+button{
+    height: 35px;
+    background-color: #467FE6;
+    border: 0px;
+    border-radius: 5px;
+    width: 80%;
+    right: 10%;
+    color: #FFF;
+    font-size: 16px;
+    position: relative;
+}
+.title{
+    top: 0%;
+    height: 20%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+.uname{
+    height: 35px;
+    background-color: #F2F2FA;
+    border: 0px;
+    border-radius: 5px;
+    width: 80%;
+    padding-left: 18px;
+    box-sizing: border-box;
+}
+.pwd{
+    height: 35px;
+    background-color: #F2F2FA;
+    border: 0px;
+    border-radius: 5px;
+    width: 80%;
+    padding-left: 18px;
+    box-sizing: border-box;
+}
+.u{
+    top: 20%;
+    height: 20%;
+    left: 10%;
+}
+.p{
+    top: 40%;
+    height: 20%;
+    left: 10%;
+}
+.s{
+    top: 60%;
+    height: 20%;
+    left: 10%;
+}
+.l{
+    top: 80%;
+    height: 20%;
+    left: 10%;
+}
