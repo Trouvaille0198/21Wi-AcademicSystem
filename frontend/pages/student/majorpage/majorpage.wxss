@@ -1,0 +1,16 @@
+/* pages/student/majorpage/majorpage.wxss */
+.showinfo{
+    margin-top: 10px;
+    margin-left: 20px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    margin-right: 20px;
+    box-shadow:3px 3px 3px #cccccc ;
+
+}
+.showinfo view{
+    margin-top: 5px;
+    height: 30px ;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}

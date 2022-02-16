@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        array:['学生','老师','admin']
+        array:['学生','admin']
     },
     
     bindPickerChange: function(e) {

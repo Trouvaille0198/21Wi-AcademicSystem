@@ -1,0 +1,7 @@
+<!--pages/student/majorpage/majorpage.wxml-->
+<van-divider contentPosition="center"   customStyle="color: #1989fa; border-color: #1989fa; font-size: 18px;">学生信息</van-divider>
+<view class="showinfo">
+    <view>用户id：{{username}}</view>
+    <view>用户名：{{userid}}</view>
+    <view>用户类型：{{usertype}}</view>
+</view>

@@ -1,0 +1,11 @@
+<!--pages/studenthome/studenthome.wxml-->
+<view class="title">
+		学生选课系统
+</view>
+
+<van-grid gutter="{{ 20 }}" column-num='2' clickable='true' >
+  <van-grid-item icon='home-o'  text="主页" link-type="navigateTo"  url="/pages/student/majorpage/majorpage"/>
+  <van-grid-item icon="photo-o" text="查询课表" link-type="navigateTo" url="/pages/student/searchcourse/searchcourse"/>
+  <van-grid-item icon="photo-o" text="选课" link-type="navigateTo" url="/pages/student/selectcourse/selectcourse"/>
+  <van-grid-item icon="photo-o" text="查询成绩" link-type="navigateTo" url="/pages/student/searchscore/searchscore"/>  
+</van-grid>
