@@ -16,7 +16,7 @@
 			</view>
 		</picker>
     </view>
-	<view class="l">
+	<view class="l" bindtap="login">
 		<button>登录</button>
 	</view>
 </view>

@@ -1,1 +1,18 @@
 /* pages/student/selectcourse/selectcourse.wxss */
+.sc{
+    margin-top:3%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+.text{
+    margin: 8px;
+}
+.l{
+    top: 80%;
+    height: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: cadetblue;
+    border-radius: 5px;
+}

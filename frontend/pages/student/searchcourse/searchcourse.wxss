@@ -1,1 +1,4 @@
 /* pages/student/searchcourse/searchcourse.wxss */
+.text{
+    margin-bottom: 3px;
+}

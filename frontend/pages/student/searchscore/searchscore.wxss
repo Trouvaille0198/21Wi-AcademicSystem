@@ -1,1 +1,13 @@
 /* pages/student/searchscore/searchscore.wxss */
+.time{
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    box-shadow:3px 3px 3px #cccccc ;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.showcls{
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+}

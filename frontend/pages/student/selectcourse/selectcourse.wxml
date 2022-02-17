@@ -1,2 +1,32 @@
 <!--pages/student/selectcourse/selectcourse.wxml-->
-<text>pages/student/selectcourse/selectcourse.wxml</text>
+<view class='sc'>
+<view class='text'>
+    <text>学分</text>
+    <van-search value="{{ value }}" placeholder="学分" />
+</view>
+
+<view class='text'>
+    <text>所属院系</text>
+    <van-search value="{{ value }}" placeholder="所属院系" />
+</view>
+
+<view class='text'>
+    <text>课名</text>
+    <van-search value="{{ value }}" placeholder="课名" />
+</view>
+<view class='text'>
+    <text>课号</text>
+    <van-search value="{{ value }}" placeholder="课号" />
+</view>
+<view class='text'>
+    <text>教师姓名</text>
+    <van-search value="{{ value }}" placeholder="教师姓名" />
+</view>
+<view class='text'>
+    <text >学期</text>
+    <van-search value="{{ value }}" placeholder="学期" />
+</view>
+<view class="l">
+		<button>查询</button>
+	</view>
+</view>

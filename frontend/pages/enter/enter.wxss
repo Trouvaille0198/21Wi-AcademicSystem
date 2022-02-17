@@ -13,6 +13,9 @@
     position: absolute;
     width: 100%;
 }
+.title{
+    margin-bottom: 20%;
+}
 button{
     height: 35px;
     background-color: #467FE6;

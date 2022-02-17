@@ -1,11 +1,13 @@
 // pages/enter/enter.js
+const axios = require('axios')
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        array:['学生','admin']
+        array:['学生','admin'],
+        index:0
     },
     
     bindPickerChange: function(e) {
@@ -15,6 +17,12 @@ Page({
         })
     },
 
+    login:function(e){
+        console.log(1)
+    },
+
+
+    
     /**
      * 生命周期函数--监听页面加载
      */

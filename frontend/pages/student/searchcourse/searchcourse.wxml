@@ -1,2 +1,12 @@
 <!--pages/student/searchcourse/searchcourse.wxml-->
-<text>pages/student/searchcourse/searchcourse.wxml</text>
+<van-collapse value="{{ activeNames }}" bind:change="onChange" wx:for="{{class}}">
+  <van-collapse-item title="{{item.title}}" name="{{index}}">
+    <view>
+        <view class="text">课号</view>
+        <view class="text">教师号</view>
+        <view class="text">时间</view>
+        <view class="text">授课老师</view>
+        <view class="text">学分</view>
+    </view>
+  </van-collapse-item>
+</van-collapse>

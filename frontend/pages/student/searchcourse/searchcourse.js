@@ -5,7 +5,13 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        activeNames : [],
+        class:[{
+            "title":"数据结构",
+        },
+        {
+            "title":"计算机网络"
+        }]
     },
 
     /**
@@ -15,6 +21,11 @@ Page({
 
     },
 
+    onChange(event){
+        this.setData({
+            activeNames: event.detail,
+          });
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

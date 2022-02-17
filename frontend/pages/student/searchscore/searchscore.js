@@ -5,9 +5,24 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        option: [
+            { text: '22-春', value: 0 },
+            { text: '22-秋', value: 1 },
+          ],
+        value: 0,
+        class:[{
+            "title":"数据结构",
+        },
+        {
+            "title":"计算机网络"
+        }]
     },
 
+    onChange(event){
+        this.setData({
+            activeNames: event.detail,
+          });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
