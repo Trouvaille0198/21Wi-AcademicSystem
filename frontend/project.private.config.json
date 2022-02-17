@@ -14,12 +14,6 @@
             "list": [
                 {
                     "name": "",
-                    "pathName": "pages/enter/enter",
-                    "query": "",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/studenthome/studenthome",
                     "query": "",
                     "scene": null

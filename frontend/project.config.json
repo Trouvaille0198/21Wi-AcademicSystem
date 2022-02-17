@@ -1,61 +1,47 @@
 {
-    "description": "项目配置文件",
-    "packOptions": {
-        "ignore": [
-            {
-                "type": "file",
-                "value": ".eslintrc.js"
-            }
-        ]
-    },
+    "miniprogramRoot": "miniprogram/",
+    "cloudfunctionRoot": "cloudfunctions/",
     "setting": {
-        "bundle": false,
-        "userConfirmedBundleSwitch": false,
         "urlCheck": true,
-        "scopeDataCheck": false,
-        "coverView": true,
-        "es6": true,
+        "es6": false,
+        "enhance": true,
         "postcss": true,
-        "compileHotReLoad": false,
-        "lazyloadPlaceholderEnable": false,
         "preloadBackgroundData": false,
         "minified": true,
-        "autoAudits": false,
         "newFeature": false,
-        "uglifyFileName": false,
-        "uploadWithSourceMap": true,
-        "useIsolateContext": true,
+        "coverView": true,
         "nodeModules": false,
-        "enhance": true,
+        "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
+        "scopeDataCheck": false,
+        "uglifyFileName": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
         "useMultiFrameRuntime": true,
         "useApiHook": true,
         "useApiHostProcess": true,
-        "showShadowRootInWxmlPanel": true,
-        "packNpmManually": true,
-        "enableEngineNative": false,
-        "packNpmRelationList": [
-            {
-              "packageJsonPath": "./package.json",
-              "miniprogramNpmDistDir": "./pages/"
-            }
-        ],
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "useIsolateContext": true,
+        "userConfirmedBundleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
         "minifyWXSS": true,
+        "disableUseStrict": false,
+        "minifyWXML": true,
         "showES6CompileOption": false,
-        "minifyWXML": true
+        "useCompilerPlugins": false
     },
-    "compileType": "miniprogram",
-    "libVersion": "2.19.4",
-    "appid": "wxd559931e9f7b2eaa",
+    "appid": "wx3e9aa4d1967c9afd",
     "projectname": "miniprogram-1",
-    "debugOptions": {
-        "hidedInDevtools": []
-    },
-    "scripts": {},
-    "staticServerOptions": {
-        "baseURL": "",
-        "servePath": ""
-    },
-    "isGameTourist": false,
+    "libVersion": "2.14.1",
+    "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
     "condition": {
         "search": {
             "list": []
@@ -63,17 +49,20 @@
         "conversation": {
             "list": []
         },
-        "game": {
-            "list": []
-        },
         "plugin": {
             "list": []
         },
-        "gamePlugin": {
+        "game": {
             "list": []
         },
         "miniprogram": {
-            "list": []
+            "list": [
+                {
+                    "id": -1,
+                    "name": "db guide",
+                    "pathName": "pages/databaseGuide/databaseGuide"
+                }
+            ]
         }
     }
 }

@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/enter/enter",
+    "pages/studenthome/studenthome",
+    "pages/student/majorpage/majorpage",
+    "pages/student/searchcourse/searchcourse",
+    "pages/student/selectcourse/selectcourse",
+    "pages/student/searchscore/searchscore"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
