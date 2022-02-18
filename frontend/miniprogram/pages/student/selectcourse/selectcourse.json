@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "van-search": "@vant/weapp/search/index"
+    "van-field": "@vant/weapp/field/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   }
 }

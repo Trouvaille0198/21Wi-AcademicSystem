@@ -1,0 +1,21 @@
+/* pages/student/selectcourseresult/selectcourseresult.wxss */
+.showclass{
+    margin: 10%;
+    margin-bottom: 3%;
+}
+checkbox{
+    height: 44px;
+}
+.myleft{
+    float:left;
+    line-height:10px;
+    width:30%;
+}
+.myright{
+    float:left;
+    line-height:10px;
+    width:70%;
+}
+.makesure{
+    margin: 10%
+}

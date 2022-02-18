@@ -16,7 +16,8 @@ App({
     }
 
     this.globalData = {
-      student : {}
+      student : {},
+      select_course_result:{}
     };
   }
 });
