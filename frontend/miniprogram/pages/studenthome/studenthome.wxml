@@ -2,6 +2,9 @@
 <view class="title">
 		学生选课系统
 </view>
+<view class="text">
+		你好！{{student.name}}
+</view>
 
 <van-grid gutter="{{ 20 }}" column-num='2' clickable='true' >
   <van-grid-item icon='home-o'  text="主页" link-type="navigateTo"  url="/pages/student/majorpage/majorpage"/>

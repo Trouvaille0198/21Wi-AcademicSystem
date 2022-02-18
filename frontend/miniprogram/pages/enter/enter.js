@@ -1,42 +1,71 @@
 // pages/enter/enter.js
-const axios = require('axios')
+import Dialog from '../miniprogram_npm/@vant/weapp/dialog/dialog';
+let app = getApp()
 
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
-        array:['学生','admin'],
-        index:0
+        array: ['学生', 'admin'],
+        index: 0,
+        name: '',
+        pwd: '',
     },
-    
-    bindPickerChange: function(e) {
-        console.log('picker发送选择改变，携带值为', e.detail.value)
+
+    InputName: function (e) {
         this.setData({
-          index: e.detail.value
+            name: e.detail.value
+        })
+    },
+    InputPwd: function (e) {
+        this.setData({
+            pwd: e.detail.value
         })
     },
 
-    login:function(e){
-       wx.cloud.callFunction({
-           name:"student",
-           data:{
-               type:'login',
-               number:'0198',
-               password:"123"
-           }
-       }).then(res=>{
-        console.log("res")
-           console.log(res)
-       }).catch(error=>{
-        console.log("err")
-           console.log(error)
-       })
+    bindPickerChange: function (e) {
+        console.log('picker发送选择改变，携带值为', e.detail.value)
+        this.setData({
+            index: e.detail.value
+        })
+    },
+
+    login: function (e) {
+        if (this.data.index == 0)
+            var name = "student";
+        else
+            var name = "admin"
+        wx.cloud.callFunction({
+            name: name,
+            data: {
+                type: 'login',
+                number: this.data.name,
+                password: this.data.pwd
+            }
+        }).then(res => {
+            app.globalData.student = res.result.student
+            console.log(app.globalData.student)
+            wx.redirectTo({
+              url: '../studenthome/studenthome',
+            })
+        }).catch(error => {
+            console.log(error)
+            Dialog.alert({
+                message: '账号或密码错误！',
+                showCancelButton: true
+            }).then(() => {
+                // on close
+            })
+            .catch(()=>{
+                // on cancel
+            });
+        })
+
     },
 
 
-    
+
     /**
      * 生命周期函数--监听页面加载
      */

@@ -1,13 +1,15 @@
 <!--pages/enter/enter.wxml-->
+<van-dialog id="van-dialog" />
+
 <view class="login">
 	<view class="title">
 		选课系统
 	</view>
 	<view class="u">
-		<input type="text" placeholder="账号" class="uname" name="userName"/>
+		<input type="text" placeholder="账号" class="uname" name="userName" bindinput="InputName"/>
 	</view>
 	<view class="p">
-		<input type="text" placeholder="密码" class="pwd" name="Pwd"/>
+		<input type="text" placeholder="密码" class="pwd" name="Pwd" bindinput="InputPwd"/>
 	</view>
     <view class="s">
         <picker bindchange="bindPickerChange" mode='selector' value="{{index}}" range="{{array}}">

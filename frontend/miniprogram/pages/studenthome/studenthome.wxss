@@ -9,3 +9,13 @@
     font-weight: 1000;
     color: #1989fa;
 }
+
+.text{
+    margin-bottom: 15%;
+    text-align: center;
+    width: 100%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    font-weight: 1000;
+    color: #380bb4;
+}

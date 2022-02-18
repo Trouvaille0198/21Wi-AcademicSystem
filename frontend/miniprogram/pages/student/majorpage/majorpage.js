@@ -1,20 +1,22 @@
 // pages/student/majorpage/majorpage.js
+let app = getApp()
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        username: '张三',
-        userid: "01",
-        usertype: "学生"
+        student: {}
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.setData({
+            student: app.globalData.student
+        })
     },
 
     /**
