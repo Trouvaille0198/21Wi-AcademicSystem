@@ -34,6 +34,15 @@ func CreateSelectionsExample() (selections []Selection) {
 
 // CreateSelection 创建选课记录
 func CreateSelection(selection Selection) (*Selection, error) {
+	// 判断数据库中是否存在重复选课
+	var duplicatedResults []*Selection
+	rowsAffected := db.Model(&Selection{}).Where(
+		"student_id = ? AND course_id = ?",
+		selection.StudentID, selection.CourseID).Find(&duplicatedResults).RowsAffected
+	if rowsAffected > 0 {
+		return nil, errors.New("选课关系已存在！")
+	}
+
 	err := db.Model(&Selection{}).Create(&selection).Error
 	if err != nil {
 		return &Selection{}, err
