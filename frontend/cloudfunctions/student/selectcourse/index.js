@@ -11,9 +11,12 @@ exports.main = async (event, context) => {
     var ret = await axios({
         method: 'post',
         url: 'http://1.15.130.83:8080/api/v1/selection',
-        data: `{"courseID":"${event.courseID}","studentID":"${event.studentID}"}`
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            "courseID":Number(event.courseID),
+            "studentID":Number(event.studentID)}
     })
-    console.log(ret.data)
-
     return ret.data
 }

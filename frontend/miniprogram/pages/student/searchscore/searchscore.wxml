@@ -1,20 +1,25 @@
 <!--pages/student/searchscore/searchscore.wxml-->
 <view class="time">
-<van-dropdown-menu>
-  <van-dropdown-item value="{{ value }}" options="{{ option }}" />
-</van-dropdown-menu>
+  <picker class='pk' bindchange="bindPickerChange" mode='selector' value="{{index}}" range="{{array}}">
+    <view>
+      {{array[index]}}
+    </view>
+  </picker>
 </view>
 
 <view class='showcls'>
-<van-collapse value="{{ activeNames }}" bind:change="onChange" wx:for="{{class}}">
-  <van-collapse-item title="{{item.title}}" name="{{index}}">
-    <view>
-        <view class="text">课号</view>
-        <view class="text">教师号</view>
-        <view class="text">授课老师</view>
-        <view class="text">学分</view>
-        <view class="text">成绩</view>
-    </view>
-  </van-collapse-item>
-</van-collapse>
+  <van-collapse value="{{ activeNames }}" bind:change="onChange" wx:for="{{selectedclass}}">
+    <van-collapse-item title="{{item.name}}" name="{{index}}">
+      <view>
+        <view>
+          <view class="text">课号：{{item.number}}</view>
+          <view class="text">学院：{{item.department}}</view>
+          <view class="text">授课老师：{{item.teacher_name}}</view>
+          <view class="text">时间：{{item.term}}</view>
+          <view class="text">学分：{{item.credit}}</view>
+          <view class="text">成绩：{{item.score}}</view>
+        </view>
+      </view>
+    </van-collapse-item>
+  </van-collapse>
 </view>

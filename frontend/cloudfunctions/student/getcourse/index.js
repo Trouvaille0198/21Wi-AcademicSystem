@@ -1,6 +1,5 @@
 const cloud = require('wx-server-sdk')
 const axios = require('axios')
-var FormData = require('form-data');
 
 
 cloud.init({

@@ -1,4 +1,5 @@
 // pages/student/selectcourseresult/selectcourseresult.js
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 let app = getApp()
 Page({
 
@@ -8,61 +9,71 @@ Page({
     data: {
         activeNames: [],
         scr: {},
-        selectedbox:[],
-        student:{}
+        selectedbox: [],
+        student: {},
+        coursetobeselected: [],
     },
-    checkboxchange:function(e){
-        let sc = this.data.scr
+    checkboxchange: function (e) {
         const value = e.detail.value
-        // console.log(sc)
-        // console.log(value)
-        for (let i = 0, lenI = sc.length; i < lenI; ++i) {
-            for (let j = 0, lenJ = value.length; j < lenJ; ++j) {
-              if (sc[i].ID === Number(value[j])) {
-                sc[i].checked = true
-                console.log(sc)
-                break
-              }
-            }
-        }
+        const student = this.data.student
+        console.log(student)
+        console.log(value)
+
         this.setData({
-            scr: sc
+            coursetobeselected: value
         })
     },
-    selectcourse:function(e){
-        const sc = this.data.scr
-        for (let i = 0, lenI = sc.length; i < lenI; ++i) {
-            if(sc[i].checked == true)
+
+    selectcourse: function (e) {
+        const ctbs = this.data.coursetobeselected
+        const student = this.data.student
+        for (let i = 0, lenI = ctbs.length; i < lenI; ++i) {
             wx.cloud.callFunction({
                 name: "student",
                 data: {
                     type: 'selectcourse',
                     studentID: student.ID,
-                    courseID:sc[i].ID
+                    courseID: Number(ctbs[i])
                 }
             }).then(res => {
+                console.log("选课id和学生")
+                console.log(student.ID)
+                console.log(ctbs[i])
                 console.log(res.result)
             })
         }
+        var msg = '课号:'
+        for (let i = 0; i < ctbs.length - 1; ++i)
+            msg = msg + ctbs[i] + ','
+        msg = msg + ctbs[ctbs.length - 1]
+        Dialog.alert({
+            title: '选课成功！',
+            message: msg ,
+            showCancelButton: true
+        }).then(() => {
+            // on close
+        });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let student = app.globalData.student
         let scr = app.globalData.select_course_result
         for (let i = 0, lenI = scr.length; i < lenI; ++i) {
-            scr[i].checked=false
+            scr[i].checked = false
         }
         this.setData({
-            scr: scr
+            scr: scr,
+            student: student
         })
     },
 
     onChange(event) {
         this.setData({
-          activeNames: event.detail,
+            activeNames: event.detail,
         });
-      },
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

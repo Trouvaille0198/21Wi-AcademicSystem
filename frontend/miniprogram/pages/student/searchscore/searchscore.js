@@ -1,35 +1,68 @@
 // pages/student/searchscore/searchscore.js
+let app = getApp()
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        option: [
-            { text: '22-春', value: 0 },
-            { text: '22-秋', value: 1 },
-          ],
-        value: 0,
-        class:[{
-            "title":"数据结构",
-        },
-        {
-            "title":"计算机网络"
-        }]
+        array: ['22-春季学期','22-冬季学期','21-秋季学期'],
+        index: 0,
+        class: [],
+        student: {},
+        selectedclass: [],
     },
-
-    onChange(event){
+    onChange(event) {
         this.setData({
             activeNames: event.detail,
-          });
+        });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        let student = app.globalData.student
+        var that = this
+        wx.cloud.callFunction({
+            name: "student",
+            data: {
+                type: 'getScourse',
+                ID: student.ID,
+                hasScore: true,
+            }
+        }).then(res => {
+            that.setData({
+                student: student,
+                class: res.result.courses
+            })
+        })
+        var class1 = this.data.class
+        var array = this.data.array
+        var selectedclass = []
+        for(let i=0;i<class1.length;++i){
+            if(class1[i].term == array[index])
+                selectedclass.push(class1[i])
+        }
+        console.log(selectedclass)
+        this.setData({
+            selectedclass:selectedclass
+        })
     },
-
+    bindPickerChange:function(e){
+        var class1 = this.data.class
+        var array = this.data.array
+        var selectedclass = []
+        for(let i=0;i<class1.length;++i){
+            if(class1[i].term == array[e.detail.value])
+                selectedclass.push(class1[i])
+        }
+        console.log(selectedclass)
+        this.setData({
+            index: e.detail.value,
+            selectedclass:selectedclass
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

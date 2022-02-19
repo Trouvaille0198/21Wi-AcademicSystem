@@ -1,4 +1,5 @@
 // pages/student/searchcourse/searchcourse.js
+let app = getApp()
 Page({
 
     /**
@@ -6,18 +7,31 @@ Page({
      */
     data: {
         activeNames : [],
-        class:[{
-            "title":"数据结构",
-        },
-        {
-            "title":"计算机网络"
-        }]
+        student: {},
+        class:[]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let student = app.globalData.student
+        var that = this
+        wx.cloud.callFunction({
+            name: "student",
+            data: {
+                type: 'getScourse',
+                ID: student.ID,
+                hasScore:false,
+            }
+        }).then(res => {
+            console.log(res.result.courses)
+            that.setData({
+                student:student,
+                class: res.result.courses
+            })
+        })
+
 
     },
 
