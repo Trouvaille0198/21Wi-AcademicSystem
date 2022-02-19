@@ -1,0 +1,21 @@
+<!--pages/student/selectcourseresult/selectcourseresult.wxml-->
+<van-dialog id="van-dialog" />
+
+<checkbox-group bindchange="checkboxchange">
+    <view wx:for="{{scr}}" class="showclass">
+        <checkbox class="myleft" value="{{item.ID}}">选课</checkbox>
+        <van-collapse class="myright" value="{{ activeNames }}" bind:change="onChange">
+            <van-collapse-item title="{{item.name}}" name="{{index}}">
+                <view>
+                    <view class="text">课号：{{item.ID}}</view>
+                    <view class="text">学院：{{item.department}}</view>
+                    <view class="text">时间：{{item.term}}</view>
+                    <view class="text">授课老师：{{item.teacher_name}}</view>
+                    <view class="text">学分：{{item.credit}}</view>
+                </view>
+            </van-collapse-item>
+        </van-collapse>
+    </view>
+</checkbox-group>
+
+<button class="makesure" type="primary" bindtap="selectcourse">确认选课</button>

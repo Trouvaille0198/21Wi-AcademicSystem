@@ -1,0 +1,9 @@
+<!--pages/student/majorpage/majorpage.wxml-->
+<van-divider contentPosition="center"   customStyle="color: #1989fa; border-color: #1989fa; font-size: 18px;">学生信息</van-divider>
+<view class="showinfo">
+    <view>id：{{student.ID}}</view>
+    <view>姓名：{{student.name}}</view>
+    <view>专业：{{student.department}}</view>
+    <view>年龄：{{student.age}}</view>
+    <view>性别：{{student.sex}}</view>
+</view>
