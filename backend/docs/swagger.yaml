@@ -262,19 +262,39 @@ paths:
       - selection
   /student:
     get:
-      consumes:
-      - application/json
-      description: 根据获取全体学生信息
-      produces:
-      - application/json
+      description: 获取学生 可以自由添加筛选属性
+      parameters:
+      - example: 21
+        in: query
+        name: age
+        type: integer
+      - description: 所属院系
+        example: 计算机
+        in: query
+        name: department
+        type: string
+      - example: 王二
+        in: query
+        name: name
+        type: string
+      - example: "0198"
+        in: query
+        name: number
+        type: string
+      - example: "123"
+        in: query
+        name: password
+        type: string
+      - example: 男
+        in: query
+        name: sex
+        type: string
       responses:
         "200":
           description: OK
           schema:
-            items:
-              $ref: '#/definitions/model.Student'
-            type: array
-      summary: 根据获取全体学生信息
+            type: string
+      summary: 获取学生
       tags:
       - student
     post:

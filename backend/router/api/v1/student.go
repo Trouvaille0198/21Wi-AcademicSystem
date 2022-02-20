@@ -31,16 +31,22 @@ func GetStudentByID(c *gin.Context) {
 	})
 }
 
-// GetAllStudents godoc
-// @Summary      根据获取全体学生信息
-// @Description  根据获取全体学生信息
+// GetStudentsByAttrs godoc
+// @Summary      获取学生
+// @Description  获取学生 可以自由添加筛选属性
 // @Tags         student
-// @Accept       json
-// @Produce      json
-// @Success      200  {object}  []model.Student
+// @Param 		 student   query   model.Student   false   "student 实例"
+// @Success      200  {string} string
 // @Router       /student [get]
-func GetAllStudents(c *gin.Context) {
-	students, err := model.GetAllStudents()
+func GetStudentsByAttrs(c *gin.Context) {
+	student := model.Student{}
+	if err := c.ShouldBindQuery(&student); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	studentsResult, err := model.GetStudentByAttrs(student)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": err.Error(),
@@ -48,7 +54,8 @@ func GetAllStudents(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"student": students,
+		"message": "查询成功",
+		"student": studentsResult,
 	})
 }
 
@@ -82,6 +89,6 @@ func CreateStudent(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "创建成功",
-		"course":  newStudent,
+		"student": newStudent,
 	})
 }
