@@ -43,9 +43,11 @@ Page({
         }
     }).then(res => {
         console.log(res.result)
+        console.log(res.result.ID)
         that.setData({
             //student:student,
             studentID: res.result.ID
+
         })
     });
     console.log(that.data.studentID);
