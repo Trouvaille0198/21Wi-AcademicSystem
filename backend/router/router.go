@@ -43,7 +43,7 @@ func NewRouter() *gin.Engine {
 		rv1.POST("/login/student", v1.LoginAsStu)
 		rv1.POST("/login/admin", v1.LoginAsAdmin)
 		// 学生
-		rv1.GET("/student", v1.GetAllStudents)
+		rv1.GET("/student", v1.GetStudentsByAttrs)
 		rv1.GET("/student/:id", v1.GetStudentByID)
 		rv1.GET("/student/:id/course", v1.GetCoursesByStudent)
 		rv1.POST("/student", v1.CreateStudent)

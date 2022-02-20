@@ -243,25 +243,55 @@
         },
         "/student": {
             "get": {
-                "description": "根据获取全体学生信息",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
+                "description": "获取学生 可以自由添加筛选属性",
                 "tags": [
                     "student"
                 ],
-                "summary": "根据获取全体学生信息",
+                "summary": "获取学生",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 21,
+                        "name": "age",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "计算机",
+                        "description": "所属院系",
+                        "name": "department",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "王二",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "0198",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "123",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "男",
+                        "name": "sex",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/model.Student"
-                            }
+                            "type": "string"
                         }
                     }
                 }

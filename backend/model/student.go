@@ -7,12 +7,12 @@ import (
 
 type Student struct {
 	gorm.Model
-	Number     string `json:"number" gorm:"unique;index" example:"0198"`
-	Name       string `json:"name" example:"王二"`
-	Sex        string `json:"sex" example:"男"`
-	Age        uint8  `json:"age" example:"21"`
-	Department string `json:"department" example:"计算机"` // 所属院系
-	Password   string `json:"password" gorm:"default:123" example:"123"`
+	Number     string `json:"number" form:"number" gorm:"unique;index" example:"0198"`
+	Name       string `json:"name" form:"name" example:"王二"`
+	Sex        string `json:"sex" form:"sex" example:"男"`
+	Age        uint8  `json:"age" form:"age" example:"21"`
+	Department string `json:"department" form:"department" example:"计算机"` // 所属院系
+	Password   string `json:"password" form:"password" gorm:"default:123" example:"123"`
 
 	Selections []Selection `json:"selections"` // 选课情况
 }
@@ -61,9 +61,9 @@ func GetStudentByNumber(number string) (*Student, error) {
 }
 
 // GetStudentByAttrs 通用方法 根据条件获取所有学生信息
-func GetStudentByAttrs(attrs interface{}) (*[]Student, error) {
+func GetStudentByAttrs(student Student) (*[]Student, error) {
 	var students []Student
-	err := db.Model(&Student{}).Where(attrs).Find(&students).Error
+	err := db.Model(&Student{}).Where(student).Find(&students).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
