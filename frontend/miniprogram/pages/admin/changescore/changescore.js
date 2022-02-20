@@ -7,11 +7,11 @@ Page({
      * 页面的初始数据
      */
     data: {
-       studentID:'',
-       ID:'',
-       courseID:'',
-       score:0,
-       class:[],
+        studentID: '',
+        ID: '',
+        courseID: '',
+        score: 0,
+        class: [],
         student: {},
         selectedclass: [],
     },
@@ -28,44 +28,35 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    ChangeStudentID:function(e){
-      var that = this;
-      console.log(e.detail)
-      that.setData({
-          ID: e.detail
-      })
-      console.log(that.data.ID)
-      wx.cloud.callFunction({
-        name: "admin",
-        data: {
-            type: 'getStudentID',
-            ID: that.data.ID,
-        }
-    }).then(res => {
-        console.log(res.result)
-        that.setData({
-            //student:student,
-            studentID: res.result.ID
+    ChangeStudentID: function (e) {
+        var that = this;
+        console.log(e.detail)
+        this.setData({
+            ID: e.detail
         })
-    });
-    console.log(that.data.studentID);
-      wx.cloud.callFunction({
-        name: "student",
-        data: {
-            type: 'getScourse',
-            ID: that.data.studentID,
-            hasScore:null,
-        }
-    }).then(res => {
-        console.log(res.result)
-        that.setData({
-            studentID: e.detail
-        })
+        console.log(this.data.ID)
+
+        wx.cloud.callFunction({
+            name: "admin",
+            data: {
+                type: 'getStudentID',
+                ID: this.data.ID,
+            }
+        }).then(res => {
+            console.log(res.result.ID)
+            that.setData({
+                //student:student,
+                studentID: res.result.ID
+
+            })
+        });
+        console.log(this.data.studentID);
+
         wx.cloud.callFunction({
             name: "student",
             data: {
                 type: 'getScourse',
-                ID: that.data.studentID,
+                ID: this.data.studentID,
                 hasScore: null,
             }
         }).then(res => {
@@ -76,46 +67,6 @@ Page({
             })
         })
 
-  },
-  ChangeCourseID:function(e){
-      console.log(e.detail)
-      this.setData({
-          courseID: e.detail
-      })
-  },
-  ChangeScore:function(e){
-      console.log(e.detail)
-      this.setData({
-          score: e.detail
-      })
-  },
-  onLoad: function (options) {
-     
-  },
-  changescore:function(e){
-      console.log(this.data)
-      wx.cloud.callFunction({
-          name: "admin",
-          data: {
-              type: 'changescore',
-              score: this.data.score,
-              studentID:this.data.studentID,
-              courseID:this.data.courseID
-          }
-      }).then(res => {
-         console.log(res.result.message)
-         Dialog.alert({
-           context:this,
-          message: res.result.message,
-          showCancelButton: true
-         }).then(() => {
-          // on close
-          this.ChangeStudentID();
-      })
-      .catch(()=>{
-          // on cancel
-      });
-         
 
     },
     ChangeCourseID: function (e) {
@@ -133,6 +84,7 @@ Page({
     onLoad: function (options) {
 
     },
+
     changescore: function (e) {
         console.log(this.data)
         wx.cloud.callFunction({
@@ -144,13 +96,7 @@ Page({
                 courseID: this.data.courseID
             }
         }).then(res => {
-            // app.globalData.select_course_result = res.result.course
-            // wx.navigateTo({
-            //  url: '../selectcourseresult/selectcourseresult',
-            //  })
-            // console.log(res.result.course)
-
-            console.log(res.result)
+            console.log(res.result.message)
             Dialog.alert({
                     context: this,
                     message: res.result.message,
@@ -166,7 +112,7 @@ Page({
             console.log(error)
             Dialog.alert({
                     context: this,
-                    message: error,
+                    message: res.result.message,
                     showCancelButton: true
                 }).then(() => {
                     // on close
