@@ -8,6 +8,7 @@ Page({
      */
     data: {
        studentID:'',
+       ID:'',
        courseID:'',
        score:0,
        class:[],
@@ -31,8 +32,23 @@ Page({
       var that = this;
       console.log(e.detail)
       that.setData({
-          studentID: e.detail
+          ID: e.detail
       })
+      console.log(that.data.ID)
+      wx.cloud.callFunction({
+        name: "admin",
+        data: {
+            type: 'getStudentID',
+            ID: that.data.ID,
+        }
+    }).then(res => {
+        console.log(res.result)
+        that.setData({
+            //student:student,
+            studentID: res.result.ID
+        })
+    });
+    console.log(that.data.studentID);
       wx.cloud.callFunction({
         name: "student",
         data: {
@@ -76,12 +92,6 @@ Page({
               courseID:this.data.courseID
           }
       }).then(res => {
-         // app.globalData.select_course_result = res.result.course
-         // wx.navigateTo({
-          //  url: '../selectcourseresult/selectcourseresult',
-        //  })
-         // console.log(res.result.course)
-         
          console.log(res.result.message)
          Dialog.alert({
            context:this,
