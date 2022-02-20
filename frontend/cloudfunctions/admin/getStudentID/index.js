@@ -8,12 +8,12 @@ cloud.init({
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-    url = 'http://1.15.130.83:8080/api/v1/student/'+event.ID.toString()+"/course"
-
+    url = 'http://1.15.130.83:8080/api/v1/student?number='+event.ID.toString()
+    
     var ret = await axios({
         method: 'get',
         url: url
     })
 
-    return ret.data
+    return ret.data.student
 }

@@ -4,6 +4,7 @@ const login = require('./login/index');
 const addcourse = require('./addcourse/index');
 const changescore = require('./changescore/index');
 const getScourse = require('./getScourse/index');
+const getStudentID = require('./getStudentID/index');
 cloud.init()
 
 // 云函数入口函数
@@ -17,5 +18,7 @@ exports.main = async (event, context) => {
             return await changescore.main(event, context);  
         case 'getScourse':
             return await getScourse.main(event,context); 
+        case 'getStudentID':
+            return await getStudentID.main(event,context);
     }
 }
