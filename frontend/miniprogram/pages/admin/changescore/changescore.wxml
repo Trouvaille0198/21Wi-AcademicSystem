@@ -2,7 +2,7 @@
 <van-dialog id="van-dialog" />
 <view class='sc'>
     <van-cell-group>
-        <van-field label="学号" placeholder="请输入学号" bind:change="ChangeStudentID" />
+        <van-field label="学号" placeholder="请输入学号" bind:change="ChangeStudentID" bind:blur="searchCourse"/>
     </van-cell-group>
     <view class='showcls'>
   <van-collapse value="{{ activeNames }}" bind:change="onChange" wx:for="{{class}}">

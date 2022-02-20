@@ -7,11 +7,11 @@ Page({
      * 页面的初始数据
      */
     data: {
-       studentID:'',
-       ID:'',
-       courseID:'',
-       score:0,
-       class:[],
+        studentID: '',
+        ID: '',
+        courseID: '',
+        score: 0,
+        class: [],
         student: {},
         selectedclass: [],
     },
@@ -21,108 +21,108 @@ Page({
         });
     },
     onChange(event) {
-      this.setData({
-          activeNames: event.detail,
-      });
-  },
+        this.setData({
+            activeNames: event.detail,
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
-    ChangeStudentID:function(e){
-      var that = this;
-      console.log(e.detail)
-      that.setData({
-          ID: e.detail
-      })
-      console.log(that.data.ID)
-      wx.cloud.callFunction({
-        name: "admin",
-        data: {
-            type: 'getStudentID',
-            ID: that.data.ID,
-        }
-    }).then(res => {
-        console.log(res.result)
-        console.log(res.result.ID)
+    ChangeStudentID: function (e) {
+        var that = this;
+        console.log(e.detail)
         that.setData({
-            //student:student,
-            studentID: res.result.ID
-
+            ID: e.detail
         })
-    });
-    console.log(that.data.studentID);
-      wx.cloud.callFunction({
-        name: "student",
-        data: {
-            type: 'getScourse',
-            ID: that.data.studentID,
-            hasScore:null,
-        }
-    }).then(res => {
-        console.log(res.result)
-        that.setData({
-            //student:student,
-            class: res.result.courses
+        console.log(this.data.ID)
+
+        wx.cloud.callFunction({
+            name: "admin",
+            data: {
+                type: 'getStudentID',
+                ID: that.data.ID,
+            }
+        }).then(res => {
+            console.log(res.result.ID)
+            that.setData({
+                //student:student,
+                studentID: res.result.ID
+
+            })
+        });
+        console.log(that.data.studentID);
+    },
+    searchCourse:function(e){
+        var that=this;
+        wx.cloud.callFunction({
+            name: "student",
+            data: {
+                type: 'getScourse',
+                ID: this.data.studentID,
+                hasScore: null,
+            }
+        }).then(res => {
+            console.log(res.result)
+            that.setData({
+                //student:student,
+                class: res.result.courses
+            })
         })
-    })
-    
+    },
+    ChangeCourseID: function (e) {
+        console.log(e.detail)
+        this.setData({
+            courseID: e.detail
+        })
+    },
+    ChangeScore: function (e) {
+        console.log(e.detail)
+        this.setData({
+            score: e.detail
+        })
+    },
+    onLoad: function (options) {
 
-  },
-  ChangeCourseID:function(e){
-      console.log(e.detail)
-      this.setData({
-          courseID: e.detail
-      })
-  },
-  ChangeScore:function(e){
-      console.log(e.detail)
-      this.setData({
-          score: e.detail
-      })
-  },
-  onLoad: function (options) {
-     
-  },
-  changescore:function(e){
-      console.log(this.data)
-      wx.cloud.callFunction({
-          name: "admin",
-          data: {
-              type: 'changescore',
-              score: this.data.score,
-              studentID:this.data.studentID,
-              courseID:this.data.courseID
-          }
-      }).then(res => {
-         console.log(res.result.message)
-         Dialog.alert({
-           context:this,
-          message: res.result.message,
-          showCancelButton: true
-         }).then(() => {
-          // on close
-          this.ChangeStudentID();
-      })
-      .catch(()=>{
-          // on cancel
-      });
-         
+    },
 
-      }).catch(error => {
-          console.log(error)
-          Dialog.alert({
-             context:this,
-              message: res.result.message,
-              showCancelButton: true
-          }).then(() => {
-              // on close
-          })
-          .catch(()=>{
-              // on cancel
-          });
-      })
-  },
-    
+    changescore: function (e) {
+        console.log(this.data)
+        wx.cloud.callFunction({
+            name: "admin",
+            data: {
+                type: 'changescore',
+                score: this.data.score,
+                studentID: this.data.studentID,
+                courseID: this.data.courseID
+            }
+        }).then(res => {
+            console.log(res.result.message)
+            Dialog.alert({
+                    context: this,
+                    message: res.result.message,
+                    showCancelButton: true
+                }).then(() => {
+                    // on close
+                    this.ChangeStudentID();
+                })
+                .catch(() => {
+                    // on cancel
+                });
+        }).catch(error => {
+            console.log(error)
+            Dialog.alert({
+                    context: this,
+                    message: res.result.message,
+                    showCancelButton: true
+                }).then(() => {
+                    // on close
+                })
+                .catch(() => {
+                    // on cancel
+                });
+        })
+    },
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
