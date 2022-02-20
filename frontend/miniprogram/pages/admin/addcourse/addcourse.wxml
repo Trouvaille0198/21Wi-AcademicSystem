@@ -1,0 +1,43 @@
+<!--pages/admin/addcourse/addcourse.wxml-->
+<van-dialog id="van-dialog" />
+
+
+    <view wx:for="{{scr}}" class="showclass">
+    
+        <van-collapse class="myright" value="{{ activeNames }}" bind:change="onChange">
+            <van-collapse-item title="{{item.name}}" name="{{index}}">
+                <view>
+                    <view class="text">课号：{{item.ID}}</view>
+                    <view class="text">学院：{{item.department}}</view>
+                    <view class="text">时间：{{item.term}}</view>
+                    <view class="text">授课老师：{{item.teacher_name}}</view>
+                    <view class="text">学分：{{item.credit}}</view>
+                </view>
+            </van-collapse-item>
+        </van-collapse>
+    </view>
+
+<view class='sc'>
+    <van-cell-group>
+        <van-field label="学分" placeholder="请输入学分" bind:change="ChangeCredit" />
+    </van-cell-group>
+    <van-cell-group>
+        <van-field label="所属院系" placeholder="请输入院系名称" bind:change="ChangeDepartment" />
+    </van-cell-group>
+    <van-cell-group>
+        <van-field label="课名" placeholder="请输入课名" bind:change="ChangeName" />
+    </van-cell-group>
+    <van-cell-group>
+        <van-field  label="课号" placeholder="请输入课号" bind:change="ChangeNumber" />
+    </van-cell-group>
+    <van-cell-group>
+        <van-field label="教师姓名" placeholder="请输入教师姓名"bind:change="ChangeTeacher_name" />
+    </van-cell-group>
+    <van-cell-group>
+        <van-field label="学期" placeholder="请输入学期" bind:change="ChangeTerm" />
+    </van-cell-group>
+
+    <view class="l">
+        <button type="primary" bindtap="AddCourse">添加课程</button>
+    </view>
+</view>

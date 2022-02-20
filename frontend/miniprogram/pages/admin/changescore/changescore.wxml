@@ -1,0 +1,34 @@
+<!--pages/admin/changescore/changescore.wxml-->
+<van-dialog id="van-dialog" />
+<view class='sc'>
+    <van-cell-group>
+        <van-field label="学号" placeholder="请输入学号" bind:change="ChangeStudentID" />
+    </van-cell-group>
+    <view class='showcls'>
+  <van-collapse value="{{ activeNames }}" bind:change="onChange" wx:for="{{class}}">
+    <van-collapse-item title="{{item.name}}" name="{{index}}">
+      <view>
+        <view>
+          <view class="text">课程序号：{{item.id}}</view>
+          <view class="text">课号：{{item.number}}</view>
+          <view class="text">学院：{{item.department}}</view>
+          <view class="text">授课老师：{{item.teacher_name}}</view>
+          <view class="text">时间：{{item.term}}</view>
+          <view class="text">学分：{{item.credit}}</view>
+          <view class="text">成绩：{{item.score}}</view>
+        </view>
+      </view>
+    </van-collapse-item>
+  </van-collapse>
+</view>
+<van-cell-group>
+        <van-field label="课程序号" placeholder="请输入课程序号" bind:change="ChangeCourseID" />
+    </van-cell-group>
+    <van-cell-group>
+        <van-field label="修改的成绩" placeholder="请输入成绩" bind:change="ChangeScore" />
+    </van-cell-group>
+
+    <view class="l">
+        <button type="primary" bindtap="changescore">修改成绩</button>
+    </view>
+</view>

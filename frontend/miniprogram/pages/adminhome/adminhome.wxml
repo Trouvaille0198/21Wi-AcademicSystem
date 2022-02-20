@@ -1,0 +1,12 @@
+<!--pages/studenthome/studenthome.wxml-->
+<view class="title">
+		亲爱的管理员
+</view>
+<view class="text">
+		你好！{{admin.name}}
+</view>
+
+<van-grid gutter="{{ 20 }}" column-num='2' clickable='true' >
+  <van-grid-item icon='home-o'  text="新增课程" link-type="navigateTo"  url="/pages/admin/addcourse/addcourse"/>
+  <van-grid-item icon="photo-o" text="学生成绩管理" link-type="navigateTo" url="/pages/admin/changescore/changescore"/>
+</van-grid>

@@ -35,7 +35,7 @@ Page({
         if (this.data.index == 0)
             var name = "student";
         else
-            var name = "admin"
+            var name = "admin";
         wx.cloud.callFunction({
             name: name,
             data: {
@@ -44,11 +44,20 @@ Page({
                 password: this.data.pwd
             }
         }).then(res => {
-            app.globalData.student = res.result.student
-            console.log(app.globalData.student)
-            wx.redirectTo({
-              url: '../studenthome/studenthome',
-            })
+            if(this.data.index == 0)
+            {
+                app.globalData.student = res.result.student
+                console.log(app.globalData.student)
+                 wx.redirectTo({
+                     url: '../studenthome/studenthome',
+                })
+            }
+            else{
+                 wx.redirectTo({
+                     url: '../adminhome/adminhome',
+                })
+            }
+            
         }).catch(error => {
             console.log(error)
             Dialog.alert({
