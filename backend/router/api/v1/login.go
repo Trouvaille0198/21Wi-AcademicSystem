@@ -22,14 +22,14 @@ func LoginAsStu(c *gin.Context) {
 
 	student, err := model.GetStudentByNumber(number)
 	if err != nil || student.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"message": "找不到此账号",
 		})
 		return
 	}
 	// 简单地验证一下密码
 	if student.Password != password {
-		c.JSON(http.StatusUnauthorized, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"message": "密码错误",
 		})
 		return

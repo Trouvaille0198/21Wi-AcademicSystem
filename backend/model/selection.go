@@ -85,6 +85,10 @@ func GetSelection(studentID, courseID int) (*Selection, error) {
 
 // UpdateSelectionScore 更新课程成绩
 func UpdateSelectionScore(id uint, score int) error {
+	if score < 1 || score > 100 {
+		return errors.New("分数不合法！")
+	}
+
 	err := db.Model(&Selection{}).Where("id = ?", id).Updates(Selection{Score: score}).Error
 	return err
 }

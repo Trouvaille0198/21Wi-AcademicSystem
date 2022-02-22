@@ -81,6 +81,30 @@ func UpdateWholeCourse(c *gin.Context) {
 	})
 }
 
+// GetCourseByID godoc
+// @Summary      根据id获取课程信息
+// @Description  根据id获取课程信息
+// @Tags         course
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "course ID"
+// @Success      200  {object}  model.Course
+// @Router       /course/{id} [get]
+func GetCourseByID(c *gin.Context) {
+	courseID := util.String2Int(c.Param("id"))
+
+	course, err := model.GetCourseByID(courseID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"student": course,
+	})
+}
+
 // CreateCourse godoc
 // @Summary      创建课程
 // @Description  创建课程

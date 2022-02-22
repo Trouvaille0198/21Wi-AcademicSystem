@@ -50,8 +50,10 @@ func NewRouter() *gin.Engine {
 		rv1.PUT("/student/:student_id/course/:course_id", v1.UpdateSelectionScore)
 		// 课程
 		rv1.POST("/course", v1.CreateCourse)
-		rv1.PUT("/course/:id", v1.UpdateWholeCourse)
 		rv1.GET("course", v1.GetCoursesByAttrs)
+		rv1.GET("/course/:id", v1.GetCourseByID)
+		rv1.PUT("/course/:id", v1.UpdateWholeCourse)
+
 		// 选课
 		rv1.POST("/selection", v1.CreateSelection)
 	}
