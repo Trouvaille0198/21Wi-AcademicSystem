@@ -98,7 +98,6 @@ definitions:
         example: 男
         type: string
     type: object
-host: localhost:8080
 info:
   contact: {}
   description: 学生选课系统
@@ -408,17 +407,17 @@ paths:
         in: path
         name: student_id
         required: true
-        type: integer
+        type: string
       - description: course ID
         in: path
         name: course_id
         required: true
-        type: integer
+        type: string
       - description: score
         in: formData
         name: score
         required: true
-        type: integer
+        type: string
       responses:
         "200":
           description: OK

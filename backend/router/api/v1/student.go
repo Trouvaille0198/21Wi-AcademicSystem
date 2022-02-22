@@ -17,7 +17,7 @@ import (
 // @Success      200  {object}  model.Student
 // @Router       /student/{id} [get]
 func GetStudentByID(c *gin.Context) {
-	studentID := util.String2Int(c.Param("id"))
+	studentID, _ := util.String2Int(c.Param("id"))
 
 	student, err := model.GetStudentByID(studentID)
 	if err != nil {

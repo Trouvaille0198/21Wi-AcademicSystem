@@ -9,7 +9,6 @@ import (
 // @version         1.0
 // @description     学生选课系统
 
-// @host      localhost:8080
 // @BasePath  /api/v1
 func main() {
 	model.Setup() // 初始化gorm数据库连接

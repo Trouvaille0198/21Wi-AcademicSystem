@@ -7,7 +7,6 @@
         "license": {},
         "version": "1.0"
     },
-    "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
         "/course": {
@@ -463,21 +462,21 @@
                 "summary": "更新课程成绩",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "student ID",
                         "name": "student_id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "course ID",
                         "name": "course_id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "score",
                         "name": "score",
                         "in": "formData",

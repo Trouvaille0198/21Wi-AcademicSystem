@@ -20,7 +20,7 @@ import (
 // @Router       /student/{id}/course [get]
 func GetCoursesByStudent(c *gin.Context) {
 	hasScore, ok := c.GetQuery("hasScore")
-	studentID := util.String2Int(c.Param("id"))
+	studentID, _ := util.String2Int(c.Param("id"))
 	var courses *[]model.CourseByStuResponse
 	var sqlErr error
 	if !ok {
@@ -62,7 +62,7 @@ func GetCoursesByStudent(c *gin.Context) {
 // @Success      200  {string} string
 // @Router       /course/{id} [put]
 func UpdateWholeCourse(c *gin.Context) {
-	courseID := util.String2Int(c.Param("id"))
+	courseID, _ := util.String2Int(c.Param("id"))
 	course := model.Course{}
 	if err := c.ShouldBindJSON(&course); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -91,7 +91,7 @@ func UpdateWholeCourse(c *gin.Context) {
 // @Success      200  {object}  model.Course
 // @Router       /course/{id} [get]
 func GetCourseByID(c *gin.Context) {
-	courseID := util.String2Int(c.Param("id"))
+	courseID, _ := util.String2Int(c.Param("id"))
 
 	course, err := model.GetCourseByID(courseID)
 	if err != nil {
