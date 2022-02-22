@@ -57,10 +57,17 @@ func UpdateSelection(id int, data map[string]interface{}) (err error) {
 }
 
 // DeleteSelection 删除指定id选课记录
-func DeleteSelection(selection Selection) (err error) {
-	err = db.Model(&Selection{}).Where(
-		"student_id = ? AND course_id = ?", selection.StudentID, selection.CourseID).Delete(&Selection{}).Error
-	return
+func DeleteSelection(selection Selection) error {
+	result := db.Model(&Selection{}).Where(
+		"student_id = ? AND course_id = ?", selection.StudentID, selection.CourseID).Delete(&Selection{})
+	err := result.Error
+	rowsAffected := result.RowsAffected
+	if err != nil {
+		return err
+	} else if rowsAffected == 0 {
+		return errors.New("没有此选课记录！")
+	}
+	return nil
 }
 
 // GetSelectionsByStudentID 获取指定学生的选课记录

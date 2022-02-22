@@ -263,6 +263,23 @@ paths:
       tags:
       - login
   /selection:
+    delete:
+      description: 删除选课
+      parameters:
+      - description: 选课情况
+        in: body
+        name: selection
+        required: true
+        schema:
+          $ref: '#/definitions/model.Selection'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 删除选课
+      tags:
+      - selection
     post:
       description: 创建选课
       parameters:

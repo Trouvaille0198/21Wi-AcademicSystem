@@ -11,15 +11,33 @@ import (
 // @Summary      更新课程成绩
 // @Description  更新课程成绩
 // @Tags         selection, admin
-// @Param 		 student_id   path   int   true   "student ID"
-// @Param 		 course_id   path   int   true   "course ID"
-// @Param 		 score   formData   int   true   "score"
+// @Param 		 student_id   path   string   true   "student ID"
+// @Param 		 course_id   path   string   true   "course ID"
+// @Param 		 score   formData   string   true   "score"
 // @Success      200  {string} string
 // @Router       /student/{student_id}/course/{course_id} [put]
 func UpdateSelectionScore(c *gin.Context) {
-	studentID := util.String2Int(c.Param("student_id"))
-	courseID := util.String2Int(c.Param("course_id"))
-	score := util.String2Int(c.PostForm("score"))
+	studentID, err1 := util.String2Int(c.Param("student_id"))
+	courseID, err2 := util.String2Int(c.Param("course_id"))
+	score, err3 := util.String2Int(c.PostForm("score"))
+	if err1 != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "student_id 不合法！",
+		})
+		return
+	}
+	if err2 != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "course_id 不合法！",
+		})
+		return
+	}
+	if err3 != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "score 不合法！",
+		})
+		return
+	}
 
 	selection, err := model.GetSelection(studentID, courseID)
 	if err != nil || selection.ID == 0 {
@@ -33,6 +51,7 @@ func UpdateSelectionScore(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "更新失败",
+			"error":   err.Error(),
 		})
 		return
 	}

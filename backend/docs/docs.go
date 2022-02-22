@@ -284,6 +284,32 @@ var doc = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "删除选课",
+                "tags": [
+                    "selection"
+                ],
+                "summary": "删除选课",
+                "parameters": [
+                    {
+                        "description": "选课情况",
+                        "name": "selection",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Selection"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         },
         "/student": {
