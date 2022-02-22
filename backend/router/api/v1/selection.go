@@ -23,7 +23,7 @@ func UpdateSelectionScore(c *gin.Context) {
 
 	selection, err := model.GetSelection(studentID, courseID)
 	if err != nil || selection.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"message": "找不到选课记录",
 		})
 		return
@@ -31,7 +31,7 @@ func UpdateSelectionScore(c *gin.Context) {
 
 	err = model.UpdateSelectionScore(selection.ID, score)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"message": "更新失败",
 		})
 		return

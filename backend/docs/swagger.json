@@ -98,6 +98,36 @@
             }
         },
         "/course/{id}": {
+            "get": {
+                "description": "根据id获取课程信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course"
+                ],
+                "summary": "根据id获取课程信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "course ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "整体更新课程信息",
                 "consumes": [
