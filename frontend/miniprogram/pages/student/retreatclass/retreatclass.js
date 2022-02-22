@@ -1,4 +1,4 @@
-// pages/student/selectcourseresult/selectcourseresult.js
+// pages/student/retreatclass/retreatclass.js
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 let app = getApp()
 Page({
@@ -12,25 +12,30 @@ Page({
         selectedbox: [],
         student: {},
         coursetobeselected: [],
+        class: {},
+        value: []
     },
     checkboxchange: function (e) {
         const value = e.detail.value
-        const student = this.data.student
-        console.log(student)
-        console.log(value)
 
+        console.log(value)
         this.setData({
             coursetobeselected: value
         })
     },
-    selectcourse: function (e) {
+
+    retreatcourse: function (e) {
+        console.log(1)
         const ctbs = this.data.coursetobeselected
         const student = this.data.student
+        console.log(ctbs)
         for (let i = 0, lenI = ctbs.length; i < lenI; ++i) {
+            console.log(student.ID)
+            console.log(Number(ctbs[i]))
             wx.cloud.callFunction({
                 name: "student",
                 data: {
-                    type: 'selectcourse',
+                    type: 'deletecourse',
                     studentID: student.ID,
                     courseID: Number(ctbs[i])
                 }
@@ -40,15 +45,16 @@ Page({
                     msg = msg + ctbs[i] + ','
                 msg = msg + ctbs[ctbs.length - 1]
                 Dialog.alert({
-                    title: '选课成功！',
+                    title: '退课成功！',
                     message: msg ,
                     showCancelButton: true
                 }).then(() => {
                     // on close
                 });
             }).catch(error =>{
+                console.log(error)
                 Dialog.alert({
-                    title: '选课失败！不要重复选课！',
+                    title: '请先选课！',
                     // message: msg ,
                     showCancelButton: true
                 }).then(() => {
@@ -70,7 +76,23 @@ Page({
             scr: scr,
             student: student
         })
+        var that = this
+        wx.cloud.callFunction({
+            name: "student",
+            data: {
+                type: 'getScourse',
+                ID: student.ID,
+                hasScore: false,
+            }
+        }).then(res => {
+            console.log(res.result.courses)
+            that.setData({
+                student: student,
+                class: res.result.courses
+            })
+        })
     },
+
 
     onChange(event) {
         this.setData({

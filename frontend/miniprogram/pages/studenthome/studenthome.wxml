@@ -11,4 +11,5 @@
   <van-grid-item icon="photo-o" text="查询课表" link-type="navigateTo" url="/pages/student/searchcourse/searchcourse"/>
   <van-grid-item icon="photo-o" text="选课" link-type="navigateTo" url="/pages/student/selectcourse/selectcourse"/>
   <van-grid-item icon="photo-o" text="查询成绩" link-type="navigateTo" url="/pages/student/searchscore/searchscore"/>  
+  <van-grid-item icon="photo-o" text="退课" link-type="navigateTo" url="/pages/student/retreatclass/retreatclass"/>  
 </van-grid>

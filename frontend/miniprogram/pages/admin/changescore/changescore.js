@@ -31,7 +31,7 @@ Page({
     ChangeStudentID: function (e) {
         var that = this;
         console.log(e.detail)
-        that.setData({
+        this.setData({
             ID: e.detail
         })
         console.log(this.data.ID)
@@ -40,20 +40,23 @@ Page({
             name: "admin",
             data: {
                 type: 'getStudentID',
-                ID: that.data.ID,
+                ID: this.data.ID,
             }
         }).then(res => {
-            console.log(res.result.ID)
+            console.log(res.result[0].ID)
             that.setData({
                 //student:student,
-                studentID: res.result.ID
-
+                studentID: res.result[0].ID
             })
         });
         console.log(that.data.studentID);
     },
+
+
     searchCourse:function(e){
-        var that=this;
+        console.log(1)
+        console.log(this.data)
+        var that = this;
         wx.cloud.callFunction({
             name: "student",
             data: {
