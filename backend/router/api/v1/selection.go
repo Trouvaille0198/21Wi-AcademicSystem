@@ -70,3 +70,32 @@ func CreateSelection(c *gin.Context) {
 		"selection": newSelection,
 	})
 }
+
+// DeleteSelection godoc
+// @Summary      删除选课
+// @Description  删除选课
+// @Tags         selection
+// @Param 		 selection   body   model.Selection   true   "选课情况"
+// @Success      200  {string} string
+// @Router       /selection [delete]
+func DeleteSelection(c *gin.Context) {
+	var selection model.Selection
+	if err := c.ShouldBindJSON(&selection); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	err := model.DeleteSelection(selection)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "删除失败",
+			"error":   err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "删除成功",
+	})
+}
