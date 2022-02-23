@@ -90,6 +90,20 @@ Page({
 
     changescore: function (e) {
         console.log(this.data)
+        if(Number(this.data.score) > 100 || Number(this.data.score)<0)
+        {
+            Dialog.alert({
+                message: "成绩不合法！",
+                showCancelButton: true
+            }).then(() => {
+                // on close
+                this.ChangeStudentID();
+            })
+            .catch(() => {
+                // on cancel
+            });
+            return
+        }
         wx.cloud.callFunction({
             name: "admin",
             data: {

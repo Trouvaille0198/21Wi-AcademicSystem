@@ -54,7 +54,7 @@ Page({
             }).catch(error =>{
                 console.log(error)
                 Dialog.alert({
-                    title: '请先选课！',
+                    title: error,
                     // message: msg ,
                     showCancelButton: true
                 }).then(() => {
