@@ -59,7 +59,7 @@ func UpdateSelection(id int, data map[string]interface{}) (err error) {
 // DeleteSelection 删除指定id选课记录
 func DeleteSelection(selection Selection) error {
 	result := db.Model(&Selection{}).Where(
-		"student_id = ? AND course_id = ?", selection.StudentID, selection.CourseID).Delete(&Selection{})
+		"student_id = ? AND course_id = ?", selection.StudentID, selection.CourseID).Unscoped().Delete(&Selection{})
 	err := result.Error
 	rowsAffected := result.RowsAffected
 	if err != nil {
