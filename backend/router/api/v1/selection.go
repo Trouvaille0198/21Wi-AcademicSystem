@@ -21,19 +21,19 @@ func UpdateSelectionScore(c *gin.Context) {
 	courseID, err2 := util.String2Int(c.Param("course_id"))
 	score, err3 := util.String2Int(c.PostForm("score"))
 	if err1 != nil {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "student_id 不合法！",
 		})
 		return
 	}
 	if err2 != nil {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "course_id 不合法！",
 		})
 		return
 	}
 	if err3 != nil {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "score 不合法！",
 		})
 		return
@@ -41,7 +41,7 @@ func UpdateSelectionScore(c *gin.Context) {
 
 	selection, err := model.GetSelection(studentID, courseID)
 	if err != nil || selection.ID == 0 {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "找不到选课记录",
 		})
 		return
@@ -49,7 +49,7 @@ func UpdateSelectionScore(c *gin.Context) {
 
 	err = model.UpdateSelectionScore(selection.ID, score)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "更新失败",
 			"error":   err.Error(),
 		})
