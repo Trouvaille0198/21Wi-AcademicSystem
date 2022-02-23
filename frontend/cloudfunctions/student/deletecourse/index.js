@@ -40,8 +40,8 @@ exports.main = async (event, context) => {
     // })
     var ret = await axios.delete('http://1.15.130.83:8080/api/v1/selection', {
         data: {
-            "courseID": 3,
-            "studentID": 3,
+            "courseID": Number(event.courseID),
+            "studentID": Number(event.studentID),
             "score": 10
         }
     })

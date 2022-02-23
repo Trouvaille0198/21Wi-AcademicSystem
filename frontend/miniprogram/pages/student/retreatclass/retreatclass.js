@@ -40,13 +40,15 @@ Page({
                     courseID: Number(ctbs[i])
                 }
             }).then(res => {
-                var msg = '课号:'
-                for (let i = 0; i < ctbs.length - 1; ++i)
-                    msg = msg + ctbs[i] + ','
-                msg = msg + ctbs[ctbs.length - 1]
+                // var msg = '课号:'
+                // for (let i = 0; i < ctbs.length - 1; ++i)
+                //     msg = msg + ctbs[i] + ','
+                // msg = msg + ctbs[ctbs.length - 1]
+                var msg = res
+                console.log(res)
                 Dialog.alert({
-                    title: '退课成功！',
-                    message: msg ,
+                    // title: '退课成功！',
+                    message: msg.result.message ,
                     showCancelButton: true
                 }).then(() => {
                     // on close
@@ -91,6 +93,7 @@ Page({
                 class: res.result.courses
             })
         })
+        console.log(this.data.class)
     },
 
 

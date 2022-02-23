@@ -35,12 +35,13 @@ Page({
                     courseID: Number(ctbs[i])
                 }
             }).then(res => {
-                var msg = '课号:'
+                // var msg = '课号:'
+                var msg = res.result.message
                 for (let i = 0; i < ctbs.length - 1; ++i)
                     msg = msg + ctbs[i] + ','
                 msg = msg + ctbs[ctbs.length - 1]
                 Dialog.alert({
-                    title: '选课成功！',
+                    // title: '选课成功！',
                     message: msg ,
                     showCancelButton: true
                 }).then(() => {
