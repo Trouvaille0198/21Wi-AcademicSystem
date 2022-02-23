@@ -3,9 +3,16 @@
 
 ## 使用方法
 ### 后端
+
+安装依赖
+
+```go
+cd ./backend
+go build
+```
+
 生成文档
 ```shell
-cd ./backend
 swag init
 ```
 编译
@@ -41,11 +48,15 @@ swag init --parseDependency --parseInternal --parseDepth=10
 
 ### 前端
 
-前端页面采用微信小程序开发
+前端页面采用微信小程序开发，通过在云函数平台部署 Axios 完成异步请求，建立与后端的数据交换；使用 Vant Weapp UI 框架完成页面的构建。
 
 ### 后端
 
 后端采用 Golang 编写，引入 GORM 对象关关系映射模型框架负责数据库的 CRUD 工作；引入 Gin WEB 框架来完成 API 的构建。项目可编译成可执行程序，便于迁移。
+
+使用 Gin 提供的中间件解决了跨域问题。
+
+后端已部署在服务器上，[这里](http://1.15.130.83:8080/swagger/index.html)查看 API 文档
 
 #### 表设计
 
@@ -111,4 +122,11 @@ func UpdateSelectionScore(id uint, score int) error {
 var courseByStuResult []CourseByStuResponse
 db.Raw("select distinct c.id, sc.score, c.number, c.name, c.credit, c.department, c.term, 		  c.teacher_name, s.name as student_name from courses as c, selections as sc, students as s where sc.course_id = c.id and sc.student_id = s.id and s.id = ?", studentID).Scan(&courseByStuResult).
 ```
+
+#### 权限设计
+
+项目设计了两个权限状态：
+
+- 学生：查看自己的选课情况、课程成绩；执行选课退课操作
+- 管理员：修改课程成绩；新建课程
 
