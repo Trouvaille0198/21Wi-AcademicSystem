@@ -20,11 +20,15 @@ type Course struct {
 // CreateCoursesExample 创建课程样例
 func CreateCoursesExample() (courses []Course) {
 	courses = []Course{
-		{Number: "0121", Name: "数据库原理", Credit: 4, Department: "计算机", Term: "22-春季学期", TeacherName: "老师A"},
-		{Number: "0830", Name: "数据结构", Credit: 5, Department: "计算机", Term: "21-冬季学期", TeacherName: "老师B"},
-		{Number: "0451", Name: "大学语文", Credit: 2, Department: "计算机", Term: "21-秋季学期", TeacherName: "老师C"},
-		{Number: "0279", Name: "算法设计与分析", Credit: 2, Department: "计算机", Term: "22-春季学期", TeacherName: "老师D"},
-		{Number: "0022", Name: "操作系统", Credit: 4, Department: "计算机", Term: "22-春季学期", TeacherName: "老师E"}}
+		{Number: "0121", Name: "数据库原理(1)", Credit: 4, Department: "计算机", Term: "21-冬季学期", TeacherName: "老师A"},
+		{Number: "0122", Name: "数据库原理(2)", Credit: 4, Department: "计算机", Term: "22-春季学期", TeacherName: "老师A"},
+		{Number: "0830", Name: "操作系统(2)", Credit: 5, Department: "计算机", Term: "21-冬季学期", TeacherName: "老师B"},
+		{Number: "0451", Name: "大学物理(3)", Credit: 2, Department: "理学院", Term: "21-春季学期", TeacherName: "老师C"},
+		{Number: "0279", Name: "算法设计与分析", Credit: 2, Department: "计算机", Term: "21-秋季学期", TeacherName: "老师D"},
+		{Number: "0022", Name: "编译原理", Credit: 4, Department: "计算机", Term: "22-春季学期", TeacherName: "老师X"},
+		{Number: "0023", Name: "编译原理", Credit: 4, Department: "计算机", Term: "22-春季学期", TeacherName: "老师Y"},
+		{Number: "0024", Name: "编译原理", Credit: 4, Department: "计算机", Term: "22-春季学期", TeacherName: "老师Z"},
+	}
 
 	db.Model(&Course{}).Create(&courses)
 	return
