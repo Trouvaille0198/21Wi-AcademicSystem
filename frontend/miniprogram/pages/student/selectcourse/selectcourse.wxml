@@ -7,7 +7,7 @@
         <van-field label="所属院系" placeholder="请输入院系名称" bind:change="ChangeDepartment" />
     </van-cell-group>
     <van-cell-group>
-        <van-field label="课名" placeholder="请输入课名" bind:change="ChangeName" />
+        <van-field  type='text' label="课名" placeholder="请输入课名" bind:blur="ChangeName" />
     </van-cell-group>
     <van-cell-group>
         <van-field  label="课号" placeholder="请输入课号" bind:change="ChangeNumber" />

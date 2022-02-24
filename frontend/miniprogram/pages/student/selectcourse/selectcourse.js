@@ -1,6 +1,7 @@
 // pages/student/selectcourse/selectcourse.js
 let app = getApp()
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+
 Page({
 
     /**
@@ -32,9 +33,9 @@ Page({
         })
     },
     ChangeName:function(e){
-        console.log(e.detail)
+        console.log(e.detail.value)
         this.setData({
-            name: e.detail
+            name: e.detail.value
         })
     },
     ChangeNumber:function(e){
@@ -80,15 +81,15 @@ Page({
             console.log(res.result.course)
         }).catch(error => {
             console.log(error)
-            Dialog.alert({
-                message: '出错了',
-                showCancelButton: true
-            }).then(() => {
-                // on close
-            })
-            .catch(()=>{
-                // on cancel
-            });
+            // Dialog.alert({
+            //     message: '出错了',
+            //     showCancelButton: true
+            // }).then(() => {
+            //     // on close
+            // })
+            // .catch(()=>{
+            //     // on cancel
+            // });
         })
     },
     /**
