@@ -6,9 +6,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        activeNames : [],
+        activeNames: [],
         student: {},
-        class:[]
+        class: []
     },
 
     /**
@@ -17,28 +17,31 @@ Page({
     onLoad: function (options) {
         let student = app.globalData.student
         var that = this
+        console.log(student.ID)
         wx.cloud.callFunction({
             name: "student",
             data: {
                 type: 'getScourse',
                 ID: student.ID,
-                hasScore:false,
+                hasScore: false,
             }
         }).then(res => {
-            console.log(res.result.courses)
+            console.log(res)
+            console.log(student)
             that.setData({
-                student:student,
+                student: student,
                 class: res.result.courses
             })
         })
 
 
+
     },
 
-    onChange(event){
+    onChange(event) {
         this.setData({
             activeNames: event.detail,
-          });
+        });
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
