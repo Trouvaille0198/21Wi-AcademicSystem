@@ -17,15 +17,21 @@ type Selection struct {
 // CreateSelectionsExample 创建课程关联实例
 func CreateSelectionsExample() (selections []Selection) {
 	selections = []Selection{
-		{StudentID: 1, CourseID: 2, Score: 96},
+		{StudentID: 1, CourseID: 1, Score: -1},
+		{StudentID: 1, CourseID: 2, Score: -1},
 		{StudentID: 1, CourseID: 3, Score: -1},
 		{StudentID: 1, CourseID: 4, Score: 75},
-		{StudentID: 2, CourseID: 1, Score: 84},
-		{StudentID: 2, CourseID: 2, Score: 68},
+		{StudentID: 1, CourseID: 6, Score: -1},
+
+		{StudentID: 2, CourseID: 1, Score: -1},
 		{StudentID: 2, CourseID: 3, Score: -1},
-		{StudentID: 2, CourseID: 5, Score: -1},
-		{StudentID: 3, CourseID: 2, Score: 75},
-		{StudentID: 5, CourseID: 5, Score: -1},
+		{StudentID: 2, CourseID: 4, Score: 93},
+		{StudentID: 2, CourseID: 5, Score: 70},
+
+		{StudentID: 3, CourseID: 4, Score: 68},
+		{StudentID: 1, CourseID: 6, Score: -1},
+
+		{StudentID: 5, CourseID: 4, Score: 85},
 	}
 
 	db.Model(&Selection{}).Create(&selections)
@@ -43,7 +49,22 @@ func CreateSelection(selection Selection) (*Selection, error) {
 		return nil, errors.New("选课关系已存在！")
 	}
 
-	err := db.Model(&Selection{}).Create(&selection).Error
+	// 判断学生是否已选课名、学期均相同的课程
+	targetCourse, err := GetCourseByID(int(selection.CourseID))
+	if err != nil {
+		return nil, err
+	}
+	duplicatedCourses, err := GetCoursesByStudent(int(selection.StudentID))
+	if err != nil {
+		return nil, err
+	}
+	for _, course := range *duplicatedCourses {
+		if course.Name == targetCourse.Name && course.Term == targetCourse.Term {
+			return nil, errors.New("学生已选课程名、学期均相同的课程！")
+		}
+	}
+
+	err = db.Model(&Selection{}).Create(&selection).Error
 	if err != nil {
 		return &Selection{}, err
 	}
