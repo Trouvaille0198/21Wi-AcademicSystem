@@ -1,2 +1,3 @@
 frontend/miniprogram/pages/miniprogram_npm/** linguist-vendored
 miniprogram_npm/** linguist-vendored
+*.js linguist-vendored
